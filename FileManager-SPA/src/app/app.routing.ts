@@ -5,7 +5,7 @@ import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
 export const AppRoutes: Routes = [{
         path: '',
-        redirectTo: 'filemanager',
+        redirectTo: 'pages/login',
         pathMatch: 'full',
       },{
         path: '',
