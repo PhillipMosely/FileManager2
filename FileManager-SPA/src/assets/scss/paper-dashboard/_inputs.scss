@@ -20,7 +20,7 @@
         border: 1px solid $dark-gray;
         @include box-shadow(none);
         outline: 0 !important;
-        color: $default-color;
+        color: $darkgray-color;
 
         & + .input-group-append .input-group-text,
         & ~ .input-group-append .input-group-text,

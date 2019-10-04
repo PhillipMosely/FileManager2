@@ -54,10 +54,10 @@
 
       &.no-border{
         .form-control{
-          color: $default-color;
+          color: $darkgray-color;
 
           @include placeholder(){
-            color: $default-color;
+            color: $darkgray-color;
           };
         }
       }
