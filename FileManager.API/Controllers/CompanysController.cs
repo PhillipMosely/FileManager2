@@ -27,7 +27,7 @@ namespace FileManager.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCompanies([FromQuery]UserParams userParams)
+        public async Task<IActionResult> GetCompanys([FromQuery]UserParams userParams)
         {
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var userFromRepo = await _repo.GetUser(currentUserId);
@@ -42,7 +42,7 @@ namespace FileManager.API.Controllers
         [HttpGet("{id}", Name="GetCompany")]
         public async Task<IActionResult> GetCompany(int id)
         {
-            var company = await _repo.GetUser(id);
+            var company = await _repo.GetCompany(id);
             var companyToReturn = _mapper.Map<CompanyForListDto>(company);
             return Ok(companyToReturn);
         }
