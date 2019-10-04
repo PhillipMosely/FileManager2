@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule} from '@angular/common/http';
+import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
+import { jqxButtonModule } from 'jqwidgets-ng/jqxbuttons';
 
 import { AppComponent } from './app.component';
 
@@ -19,6 +21,7 @@ import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AppRoutes } from './app.routing';
 import { AuthService } from './_services/auth.service';
 import { SweetAlertService } from './_services/sweetalert.service';
+
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -38,6 +41,8 @@ export function tokenGetter() {
         NavbarModule,
         FooterModule,
         FixedPluginModule,
+        jqxTreeModule,
+        jqxButtonModule,
         JwtModule.forRoot({
             config: {
                tokenGetter,
