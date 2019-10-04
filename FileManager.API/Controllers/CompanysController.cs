@@ -15,12 +15,12 @@ namespace FileManager.API.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class CompanyController : ControllerBase
+    public class CompanysController : ControllerBase
     {
         private readonly IFileManagerRepository _repo;
         private readonly IMapper _mapper;
 
-        public CompanyController(IFileManagerRepository repo, IMapper mapper)
+        public CompanysController(IFileManagerRepository repo, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repo;
