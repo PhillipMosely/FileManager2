@@ -15,12 +15,17 @@ export class AuthService {
   decodedToken: any;
   currentUser: User;
   photoUrl = new BehaviorSubject<string>('../../assets/img/user.png');
+  fullName = new BehaviorSubject<string>('user');
   currentPhotoUrl = this.photoUrl.asObservable();
+  currentFullName = this.fullName.asObservable();
 
   constructor(private http: HttpClient) {}
 
   changeMemberPhoto(photoUrl: string) {
     this.photoUrl.next(photoUrl);
+  }
+  changeMemberFullName(user: User) {
+    this.fullName.next(user.firstName + ' ' + user.lastName);
   }
 
   login(model: any) {
@@ -35,6 +40,7 @@ export class AuthService {
             this.decodedToken = this.jwtHelper.decodeToken(user.token);
             this.currentUser = user.user;
             this.changeMemberPhoto(this.currentUser.photoUrl);
+            this.changeMemberFullName(this.currentUser);
 
           }
       })

@@ -126,6 +126,7 @@ export const ROUTES: RouteInfo[] = [{
 export class SidebarComponent implements OnInit, AfterViewInit {
     public menuItems: any[];
     photoUrl: string;
+    fullName: string;
 
     constructor(public  authService: AuthService) {}
 
@@ -139,6 +140,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
+        this.authService.currentFullName.subscribe(fullName => this.fullName = fullName);
     }
     ngAfterViewInit() {
     }
