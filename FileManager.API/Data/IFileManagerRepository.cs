@@ -15,15 +15,20 @@ namespace FileManager.API.Data
 
          Task<PagedList<Company>> GetCompanies(UserParams userParams);
          Task<Company> GetCompany(int id);
+         Task<Company> AddCompany(Company company);
+         Task<bool> CompanyExists(string companyname);
 
          Task<PagedList<FileManagerAdmin>> GetFMAdmins(UserParams userParams);
          Task<FileManagerAdmin> GetFMAdmin(int id);
-         
+         Task<FileManagerAdmin> AddFMAdmin(FileManagerAdmin fmAdmin);
+         Task<bool> FMAdminExists(int userId);
+
          Task<File> GetFile(int id);
       
          Task<Role> GetRole(int id);
-         
          Task<PagedList<Role>> GetRoles(UserParams userParams);
+         Task<Role> AddRole(Role role);
+         Task<bool> RoleExists(string rolename);
 
         
     }

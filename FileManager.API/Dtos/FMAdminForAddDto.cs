@@ -2,7 +2,7 @@ using System;
 
 namespace FileManager.API.Models
 {
-    public class FMAdminForCreateDto
+    public class FMAdminForAddDto
     {
         public int Id { get; set; }
         public int UserId { get; set; }
@@ -10,7 +10,7 @@ namespace FileManager.API.Models
         public string FoldersXML { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }       
-        public FMAdminForCreateDto()
+        public FMAdminForAddDto()
         {
             DateCreated = DateTime.Now;
             DateModified = DateTime.Now;

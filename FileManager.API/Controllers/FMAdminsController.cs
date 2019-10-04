@@ -66,5 +66,19 @@ namespace FileManager.API.Controllers
             
             throw new Exception($"Updating File Manager Admin {id} failed on save");
         }
+        [HttpPost("AddFMAdmin")]
+        public async Task<IActionResult> AddFMAdmin(FMAdminForAddDto fmAdminForAddDto)
+        {
+            if (await _repo.FMAdminExists(fmAdminForAddDto.UserId))
+                return BadRequest("File Manager Admin entry Name already exists");
+
+            var fmAdminToAdd = _mapper.Map<FileManagerAdmin>(fmAdminForAddDto);
+
+            var createdFMAdmin = _repo.AddFMAdmin(fmAdminToAdd);
+
+            var fmAdminToReturn = _mapper.Map<FMAdminForListDto>(createdFMAdmin);
+
+            return CreatedAtRoute("AddFMAdmin", new {controller = "FMAdmins", id= createdFMAdmin.Id},fmAdminToReturn);
+        }        
     }
 }

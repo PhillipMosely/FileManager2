@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -51,8 +52,24 @@ namespace FileManager.API.Controllers
             return Ok(rolesToReturn);
         }
 
-        [HttpPost("add")]
-        public IActionResult Add(RoleForAddDto roleForAddDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateRole(int id, RoleForUpdateDto roleForUpdateDto)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var roleFromRepo = await _repo.GetRole(id);
+
+            _mapper.Map(roleForUpdateDto,roleFromRepo);
+
+            if (await _repo.SaveAll())
+                return NoContent();
+            
+            throw new Exception($"Updating Role {id} failed on save");
+        }
+
+        [HttpPost("AddRole")]
+        public async Task<IActionResult> AddRole(RoleForAddDto roleForAddDto)
         {
 
             roleForAddDto.RoleName = roleForAddDto.RoleName.ToLower();
@@ -61,11 +78,11 @@ namespace FileManager.API.Controllers
 
             var roleToAdd = _mapper.Map<Role>(roleForAddDto);
 
-            var createdRole = _repo.Add<Role>(roleToAdd);
+            var createdRole = _repo.AddRole(roleToAdd);
 
-            var roleToReturn = _mapper.Map<UserForDetailedDto>(createdRole);
+            var roleToReturn = _mapper.Map<RoleForListDto>(createdRole);
 
-            return CreatedAtRoute("GetRole", new {controller = "Roles", id= createdRole.Id},roleToReturn);
+            return CreatedAtRoute("AddRoles", new {controller = "Roles", id= createdRole.Id},roleToReturn);
         }
     }
 }

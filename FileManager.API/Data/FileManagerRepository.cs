@@ -21,6 +21,7 @@ namespace FileManager.API.Data
             _context.Add(entity);
         }
 
+
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
@@ -59,7 +60,18 @@ namespace FileManager.API.Data
             return await PagedList<Role>.CreateAsync(roles,userParams.PageNumber,userParams.PageSize);
 
         }
-
+        public async Task<Role> AddRole(Role role) 
+        {
+            await _context.Roles.AddAsync(role);
+            await _context.SaveChangesAsync();
+            return role; 
+        }
+        public async Task<bool> RoleExists(string rolename)
+        {
+            if (await _context.Roles.AnyAsync(x => x.RoleName == rolename))
+                return true;
+            return false;
+        }
         public async Task<PagedList<Company>> GetCompanies(UserParams userParams)
         {
             var companies = _context.Companies.OrderBy(u => u.CompanyName).AsQueryable();
@@ -73,6 +85,20 @@ namespace FileManager.API.Data
 
             return company;
         }
+        public async Task<Company> AddCompany(Company company) 
+        {
+            await _context.Companies.AddAsync(company);
+            await _context.SaveChangesAsync();
+            return company; 
+        }
+
+        public async Task<bool> CompanyExists(string companyname)
+        {
+            if (await _context.Companies.AnyAsync(x => x.CompanyName == companyname))
+                return true;
+            return false;
+        }
+
         public async Task<PagedList<FileManagerAdmin>> GetFMAdmins(UserParams userParams)
         {
             var fmadmins = _context.FileManagerAdmin.OrderBy(u => u.User.Company.CompanyName).AsQueryable();
@@ -88,6 +114,18 @@ namespace FileManager.API.Data
             return fmadmin;
         }
 
+        public async Task<FileManagerAdmin> AddFMAdmin(FileManagerAdmin fmAdmin) 
+        {
+            await _context.FileManagerAdmin.AddAsync(fmAdmin);
+            await _context.SaveChangesAsync();
+            return fmAdmin; 
+        }
+        public async Task<bool> FMAdminExists(int userId)
+        {
+            if (await _context.FileManagerAdmin.AnyAsync(x => x.UserId == userId))
+                return true;
+            return false;
+        }
 
         public async Task<bool> SaveAll()
         {

@@ -6,6 +6,7 @@ using AutoMapper;
 using FileManager.API.Data;
 using FileManager.API.Dtos;
 using FileManager.API.Helpers;
+using FileManager.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,5 +62,21 @@ namespace FileManager.API.Controllers
             throw new Exception($"Updating Company {id} failed on save");
         }
 
+        [HttpPost("AddCompany")]
+        public async Task<IActionResult> AddRole(CompanyForAddDto companyForAddDto)
+        {
+
+            companyForAddDto.CompanyName = companyForAddDto.CompanyName.ToLower();
+            if (await _repo.CompanyExists(companyForAddDto.CompanyName))
+                return BadRequest("Company Name already exists");
+
+            var companyToAdd = _mapper.Map<Company>(companyForAddDto);
+
+            var createdCompany = _repo.AddCompany(companyToAdd);
+
+            var companyToReturn = _mapper.Map<RoleForListDto>(createdCompany);
+
+            return CreatedAtRoute("AddCompany", new {controller = "Companys", id= createdCompany.Id},companyToReturn);
+        }
     }
 }
