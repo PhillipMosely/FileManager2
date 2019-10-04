@@ -12,10 +12,18 @@ namespace FileManager.API.Data
          Task<bool> SaveAll();
          Task<PagedList<User>> GetUsers(UserParams userParams);
          Task<User> GetUser(int id);
+
+         Task<PagedList<Company>> GetCompanies(UserParams userParams);
+         Task<Company> GetCompany(int id);
+
+         Task<PagedList<FileManagerAdmin>> GetFMAdmins(UserParams userParams);
+         Task<FileManagerAdmin> GetFMAdmin(int id);
          
          Task<File> GetFile(int id);
-         
+      
          Task<Role> GetRole(int id);
+         
+         Task<PagedList<Role>> GetRoles(UserParams userParams);
 
         
     }

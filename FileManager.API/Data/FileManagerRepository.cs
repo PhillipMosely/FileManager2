@@ -52,10 +52,47 @@ namespace FileManager.API.Data
 
             return Role;
         }
+        public async Task<PagedList<Role>> GetRoles(UserParams userParams)
+        {
+            var roles = _context.Roles.OrderBy(u => u.RoleName).AsQueryable();
+
+            return await PagedList<Role>.CreateAsync(roles,userParams.PageNumber,userParams.PageSize);
+
+        }
+
+        public async Task<PagedList<Company>> GetCompanies(UserParams userParams)
+        {
+            var companies = _context.Companies.OrderBy(u => u.CompanyName).AsQueryable();
+
+            return await PagedList<Company>.CreateAsync(companies,userParams.PageNumber,userParams.PageSize);
+        }
+
+        public async Task<Company> GetCompany(int id)
+        {
+            var company = await _context.Companies.FirstOrDefaultAsync(u => u.Id == id);
+
+            return company;
+        }
+        public async Task<PagedList<FileManagerAdmin>> GetFMAdmins(UserParams userParams)
+        {
+            var fmadmins = _context.FileManagerAdmin.OrderBy(u => u.User.Company.CompanyName).AsQueryable();
+
+            return await PagedList<FileManagerAdmin>.CreateAsync(fmadmins,userParams.PageNumber,userParams.PageSize);
+
+        }
+
+        public async Task<FileManagerAdmin> GetFMAdmin(int id)
+        {
+            var fmadmin = await _context.FileManagerAdmin.FirstOrDefaultAsync(u => u.Id == id);
+
+            return fmadmin;
+        }
+
+
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
         }
 
-    }
+      }
 }
