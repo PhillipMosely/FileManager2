@@ -31,6 +31,14 @@ namespace FileManager.API.Data
                 .HasForeignKey(u => u.RoleId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<User>()
+                .HasOne(u => u.Company)
+                .OnDelete(DeleteBehavior.Restrict);  
+            
+            builder.Entity<FileManagerAdmin>()
+                .HasOne(u => u.User)
+                .OnDelete(DeleteBehavior.Restrict);                 
+
         }
     }
 }
