@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FileManager.API.Controllers
 {
-    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -30,7 +29,6 @@ namespace FileManager.API.Controllers
         public async Task<IActionResult> GetCompanys([FromQuery]UserParams userParams)
         {
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var userFromRepo = await _repo.GetUser(currentUserId);
             userParams.UserId = currentUserId;
  
             var companies = await _repo.GetCompanies(userParams);
