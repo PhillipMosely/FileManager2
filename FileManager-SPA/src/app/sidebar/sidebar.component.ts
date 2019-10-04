@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit } from '@angular/core';
+import { User } from 'app/_models/user';
+import { AuthService } from 'app/_services/auth.service';
 
 //Metadata
 export interface RouteInfo {
@@ -121,10 +123,14 @@ export const ROUTES: RouteInfo[] = [{
     templateUrl: 'sidebar.component.html',
 })
 
-export class SidebarComponent {
+export class SidebarComponent implements OnInit, AfterViewInit {
     public menuItems: any[];
+    photoUrl: string;
+
+    constructor(public  authService: AuthService) {}
+
     isNotMobileMenu(){
-        if( window.outerWidth > 991){
+        if ( window.outerWidth > 991) {
             return false;
         }
         return true;
@@ -132,7 +138,8 @@ export class SidebarComponent {
 
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
+        this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
     }
-    ngAfterViewInit(){
+    ngAfterViewInit() {
     }
 }

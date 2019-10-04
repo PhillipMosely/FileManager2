@@ -26,6 +26,7 @@ namespace FileManager.API.Data
                     FirstName = "Admin",
                     LastName = "Admin",
                     UserName = "admin",
+                    PhotoUrl = "",
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now
                 };            
