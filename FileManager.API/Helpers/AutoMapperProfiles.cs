@@ -16,6 +16,12 @@ namespace FileManager.API.Helpers
             CreateMap<RoleForCreateDto,Role>();
             CreateMap<RoleForUpdateDto,Role>();
             CreateMap<Role,RoleForListDto>();
+            CreateMap<CompanyForCreateDto,Company>();
+            CreateMap<CompanyForUpdateDto,Company>();
+            CreateMap<Company,CompanyForListDto>();
+            CreateMap<FMAdminForCreateDto,FileManagerAdmin>();
+            CreateMap<FMAdminForUpdateDto,FileManagerAdmin>();
+            CreateMap<FileManagerAdmin,FMAdminForListDto>();
 
         }
     }

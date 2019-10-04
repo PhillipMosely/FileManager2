@@ -51,5 +51,21 @@ namespace FileManager.API.Controllers
             return Ok(rolesToReturn);
         }
 
+        [HttpPost("add")]
+        public IActionResult Add(RoleForAddDto roleForAddDto)
+        {
+
+            roleForAddDto.RoleName = roleForAddDto.RoleName.ToLower();
+            if (await _repo.RoleExists(roleForAddDto.RoleName))
+                return BadRequest("Role Name already exists");
+
+            var roleToAdd = _mapper.Map<Role>(roleForAddDto);
+
+            var createdRole = _repo.Add<Role>(roleToAdd);
+
+            var roleToReturn = _mapper.Map<UserForDetailedDto>(createdRole);
+
+            return CreatedAtRoute("GetRole", new {controller = "Roles", id= createdRole.Id},roleToReturn);
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace FileManager.API.Models
         public string FoldersXML { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }       
-        public CompanyForCreateDto()
+        public FMAdminForCreateDto()
         {
             DateCreated = DateTime.Now;
             DateModified = DateTime.Now;

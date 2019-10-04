@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -16,12 +17,12 @@ namespace FileManager.API.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class FMAdminController : ControllerBase
+    public class FMAdminsController : ControllerBase
     {
         private readonly IFileManagerRepository _repo;
         private readonly IMapper _mapper;
 
-        public FMAdminController(IFileManagerRepository repository, IMapper mapper)
+        public FMAdminsController(IFileManagerRepository repository, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repository;
@@ -35,7 +36,7 @@ namespace FileManager.API.Controllers
 
             var fmAdmin = _mapper.Map<FMAdminForListDto>(fmAdminfromRepo);
 
-            return Ok(role);
+            return Ok(fmAdmin);
         }
 
         [HttpGet]
@@ -45,13 +46,13 @@ namespace FileManager.API.Controllers
             userParams.UserId = currentUserId;
  
             var fmAdmins = await _repo.GetFMAdmins(userParams);
-            var fmAdminToReturn = _mapper.Map<IEnumerable<FMAdminForListDto>>(fmAdmin);
-            Response.AddPagination(fmAdmin.CurrentPage,fmAdmin.PageSize,fmAdmin.TotalCount,fmAdmin.TotalPages);
-            return Ok(fmAdminToReturn);
+            var fmAdminsToReturn = _mapper.Map<IEnumerable<FMAdminForListDto>>(fmAdmins);
+            Response.AddPagination(fmAdmins.CurrentPage,fmAdmins.PageSize,fmAdmins.TotalCount,fmAdmins.TotalPages);
+            return Ok(fmAdminsToReturn);
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCompany(int id, FMAdminForUpdateDto fmAdminForUpdateDto)
+        public async Task<IActionResult> UpdateFMAdmin(int id, FMAdminForUpdateDto fmAdminForUpdateDto)
         {
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
