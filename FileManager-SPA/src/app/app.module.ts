@@ -18,6 +18,7 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AppRoutes } from './app.routing';
 import { AuthService } from './_services/auth.service';
+import { SweetAlertService } from './_services/sweetalert.service';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -51,7 +52,8 @@ export function tokenGetter() {
         AuthLayoutComponent,
     ],
     providers: [
-        AuthService
+        AuthService,
+        SweetAlertService
     ],
     bootstrap:    [ AppComponent ]
 })

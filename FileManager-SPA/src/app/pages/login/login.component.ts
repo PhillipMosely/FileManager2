@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { AuthService } from 'app/_services/auth.service';
+import { SweetAlertService } from 'app/_services/sweetalert.service';
 
 declare var $:any;
 
@@ -11,7 +13,8 @@ declare var $:any;
 })
 
 export class LoginComponent implements OnInit{
-  focus;
+    model: any = {};
+    focus;
   focus1;
   focus2;
     test : Date = new Date();
@@ -19,7 +22,12 @@ export class LoginComponent implements OnInit{
     private sidebarVisible: boolean;
     private nativeElement: Node;
 
-    constructor(private element : ElementRef) {
+    constructor(private element: ElementRef, private authService: AuthService, 
+                private router: Router, private sweetAlertService: SweetAlertService) {
+        if (authService.LoggedIn()){
+            this.router.navigate(['/filemanager']);
+        }
+
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
     }
@@ -65,4 +73,14 @@ export class LoginComponent implements OnInit{
             body.classList.remove('nav-open');
         }
     }
+
+    login() {
+        this.authService.login(this.model).subscribe(next => {
+          this.sweetAlertService.success('logged in successfully');
+        }, error => {
+          this.sweetAlertService.error(error);
+        }, () => {
+          this.router.navigate(['/members']);
+        });
+      }
 }
