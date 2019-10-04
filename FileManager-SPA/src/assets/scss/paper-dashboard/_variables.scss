@@ -89,7 +89,9 @@ $purple-color:               #c178c1 !default;
 $purple-states-color:        darken($purple-color, 8%) !default;
 
 $medium-pale-bg:             #F1EAE0 !default;
+
 $darkgray-color:             #323232 !default;
+$darkgray-states-color:       darken($darkgray-color, 10%) !default;
 
 $brown-color:                #dcb285 !default;
 $default-color-opacity:      rgba(182, 182, 182, .6) !default;

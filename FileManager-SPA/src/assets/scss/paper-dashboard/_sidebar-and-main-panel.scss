@@ -342,7 +342,9 @@
     &[data-color="brown"]{
       @include sidebar-color($default-color);
     }
-
+    &[data-color="darkgray"]{
+      @include sidebar-color($darkgray-color);
+    }
     // Active color changing
 
     &[data-active-color="primary"]{
@@ -359,6 +361,9 @@
     }
     &[data-active-color="danger"]{
         @include sidebar-active-color($danger-color);
+    }
+    &[data-active-color="darkgray"]{
+      @include sidebar-active-color($darkgray-color);
     }
 
     .user{
