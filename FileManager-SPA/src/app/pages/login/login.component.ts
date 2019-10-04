@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit{
         }, error => {
           this.sweetAlertService.error(error);
         }, () => {
-          this.router.navigate(['/members']);
+          this.router.navigate(['/filemanager']);
         });
       }
 }
