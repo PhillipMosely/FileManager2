@@ -12,27 +12,27 @@ export class FilemanagerComponent implements OnInit, AfterViewInit {
   treeSource: any[] =
   [
       {
-          icon: '../images/mailIcon.png', label: 'Mail', expanded: true,
+          label: 'Mail', expanded: true,
           items:
           [
-              { icon: '../images/calendarIcon.png', label: "Calendar" },
-              { icon: '../images/contactsIcon.png', label: "Contacts", selected: true }
+              { label: 'Calendar' },
+              { label: 'Contacts', selected: true }
           ]
       },
       {
-          icon: '../images/folder.png', label: 'Inbox', expanded: true,
+          label: 'Inbox', expanded: true,
           items:
           [
-              { icon: "../images/folder.png", label: "Admin" },
-              { icon: "../images/folder.png", label: "Corporate" },
-              { icon: "../images/folder.png", label: "Finance" },
-              { icon: "../images/folder.png", label: "Other" },
+              { label: 'Admin' },
+              { label: 'Corporate' },
+              { label: 'Finance' },
+              { label: 'Other' },
           ]
       },
-      { icon: '../images/recycle.png', label: 'Deleted Items' },
-      { icon: '../images/notesIcon.png', label: 'Notes' },
-      { iconsize: 14, icon: '../images/settings.png', label: 'Settings' },
-      { icon: '../images/favorites.png', label: 'Favorites' }
+      { label: 'Deleted Items' },
+      { label: 'Notes' },
+      { label: 'Settings' },
+      { label: 'Favorites' }
   ];
   constructor() { }
 
