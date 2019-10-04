@@ -12,6 +12,11 @@ namespace FileManager.API.Data
         {
             if (!context.Users.Any())
             {
+                var company = new Company {
+                    CompanyName = "Google"
+                };
+                context.Companies.Add(company);
+
                 var role = new Role { 
                     RoleName="Admin",
                     Description="Administrative Role"};
@@ -28,7 +33,8 @@ namespace FileManager.API.Data
                     UserName = "admin",
                     PhotoUrl = "",
                     DateCreated = DateTime.Now,
-                    DateModified = DateTime.Now
+                    DateModified = DateTime.Now,
+                    Company = company
                 };            
                 
                 byte[] passwordHash, passwordSalt;
@@ -43,7 +49,8 @@ namespace FileManager.API.Data
                     LastName = "User",
                     UserName = "testuser",
                     DateCreated = DateTime.Now,
-                    DateModified = DateTime.Now
+                    DateModified = DateTime.Now,
+                    Company = company
                 };            
                 
                 CreatePasswordHash("password",out passwordHash, out passwordSalt);

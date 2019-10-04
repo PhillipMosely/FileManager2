@@ -9,14 +9,34 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileManager.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191004125444_photourl")]
-    partial class photourl
+    [Migration("20191004185452_CompanyFMAdmin")]
+    partial class CompanyFMAdmin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
+
+            modelBuilder.Entity("FileManager.API.Models.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
 
             modelBuilder.Entity("FileManager.API.Models.File", b =>
                 {
@@ -42,6 +62,34 @@ namespace FileManager.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Files");
+                });
+
+            modelBuilder.Entity("FileManager.API.Models.FileManagerAdmin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FoldersXML")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubFolderName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FileManagerAdmin");
                 });
 
             modelBuilder.Entity("FileManager.API.Models.Role", b =>
@@ -75,6 +123,9 @@ namespace FileManager.API.Migrations
 
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Country")
                         .HasColumnType("TEXT");
@@ -117,6 +168,8 @@ namespace FileManager.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.ToTable("Users");
                 });
 
@@ -133,6 +186,24 @@ namespace FileManager.API.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRole");
+                });
+
+            modelBuilder.Entity("FileManager.API.Models.FileManagerAdmin", b =>
+                {
+                    b.HasOne("FileManager.API.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FileManager.API.Models.User", b =>
+                {
+                    b.HasOne("FileManager.API.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FileManager.API.Models.UserRole", b =>
