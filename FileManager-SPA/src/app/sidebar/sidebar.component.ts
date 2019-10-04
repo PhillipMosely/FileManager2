@@ -23,7 +23,7 @@ export const ROUTES: RouteInfo[] = [{
     path: '/filemanager',
     title: 'File Manager',
     type: 'link',
-    icontype: 'nc-icon nc-bank'
+    icontype: 'nc-icon nc-single-copy-04'
     },{
         path: '/dashboard',
         title: 'Dashboard',

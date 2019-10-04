@@ -3,6 +3,8 @@ import { ROUTES } from '../.././sidebar/sidebar.component';
 import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from 'app/_services/auth.service';
+import { SweetAlertService } from 'app/_services/sweetalert.service';
 
 var misc:any ={
     navbar_menu_visible: 0,
@@ -27,7 +29,10 @@ export class NavbarComponent implements OnInit{
 
     @ViewChild("navbar-cmp", {static: false}) button;
 
-    constructor(location:Location, private renderer : Renderer, private element : ElementRef, private router: Router) {
+    constructor(location: Location, private renderer: Renderer,
+                private element : ElementRef, private router: Router,
+                private authService: AuthService,
+                private sweetAlertService: SweetAlertService) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -144,4 +149,15 @@ export class NavbarComponent implements OnInit{
         // console.log(this.location);
         return this.location.prepareExternalUrl(this.location.path());
     }
+
+    logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.authService.decodedToken = null;
+        this.authService.currentUser = null;
+        this.sweetAlertService.message('logged out');
+        this.router.navigate(['/pages/login']);
+    }
+
+
 }
