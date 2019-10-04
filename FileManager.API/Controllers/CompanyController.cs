@@ -33,29 +33,29 @@ namespace FileManager.API.Controllers
             var userFromRepo = await _repo.GetUser(currentUserId);
             userParams.UserId = currentUserId;
  
-            var users = await _repo.GetUsers(userParams);
-            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
-            Response.AddPagination(users.CurrentPage,users.PageSize,users.TotalCount,users.TotalPages);
-            return Ok(usersToReturn);
+            var companies = await _repo.GetCompanies(userParams);
+            var companiesToReturn = _mapper.Map<IEnumerable<CompanyForListDto>>(companies);
+            Response.AddPagination(companies.CurrentPage,companies.PageSize,companies.TotalCount,companies.TotalPages);
+            return Ok(companiesToReturn);
         }
 
         [HttpGet("{id}", Name="GetCompany")]
         public async Task<IActionResult> GetCompany(int id)
         {
-            var user = await _repo.GetUser(id);
-            var userToReturn = _mapper.Map<UserForDetailedDto>(user);
-            return Ok(userToReturn);
+            var company = await _repo.GetUser(id);
+            var companyToReturn = _mapper.Map<CompanyForListDto>(company);
+            return Ok(companyToReturn);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCompany(int id, UserForUpdateDto userForUpdateDto)
+        public async Task<IActionResult> UpdateCompany(int id, CompanyForUpdateDto companyForUpdateDto)
         {
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
             
-            var userFromRepo = await _repo.GetUser(id);
+            var companyFromRepo = await _repo.GetCompany(id);
 
-            _mapper.Map(userForUpdateDto,userFromRepo);
+            _mapper.Map(companyForUpdateDto,companyFromRepo);
 
             if (await _repo.SaveAll())
                 return NoContent();
