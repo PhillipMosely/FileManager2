@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit{
         this.authService.login(this.model).subscribe(next => {
           this.sweetAlertService.success('logged in successfully');
         }, error => {
-          this.sweetAlertService.error(error);
+          this.sweetAlertService.error('not able to login');
         }, () => {
           this.router.navigate(['/filemanager']);
         });
