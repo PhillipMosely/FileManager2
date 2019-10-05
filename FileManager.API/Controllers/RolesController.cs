@@ -55,10 +55,10 @@ namespace FileManager.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRole(int id, RoleForUpdateDto roleForUpdateDto)
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
             
             var roleFromRepo = await _repo.GetRole(id);
+            if (roleFromRepo == null)
+                return NotFound();
 
             _mapper.Map(roleForUpdateDto,roleFromRepo);
 
@@ -72,7 +72,6 @@ namespace FileManager.API.Controllers
         public async Task<IActionResult> AddRole(RoleForAddDto roleForAddDto)
         {
 
-            roleForAddDto.RoleName = roleForAddDto.RoleName.ToLower();
             if (await _repo.RoleExists(roleForAddDto.RoleName))
                 return BadRequest("Role Name already exists");
 

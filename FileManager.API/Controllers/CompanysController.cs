@@ -49,10 +49,10 @@ namespace FileManager.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCompany(int id, CompanyForUpdateDto companyForUpdateDto)
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
-            
+          
             var companyFromRepo = await _repo.GetCompany(id);
+            if (companyFromRepo == null)
+                return NotFound();            
 
             _mapper.Map(companyForUpdateDto,companyFromRepo);
 
@@ -66,7 +66,6 @@ namespace FileManager.API.Controllers
         public async Task<IActionResult> AddCompany(CompanyForAddDto companyForAddDto)
         {
 
-            companyForAddDto.CompanyName = companyForAddDto.CompanyName.ToLower();
             if (await _repo.CompanyExists(companyForAddDto.CompanyName))
                 return BadRequest("Company Name already exists");
 

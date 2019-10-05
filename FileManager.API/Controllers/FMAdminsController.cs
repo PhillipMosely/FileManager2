@@ -54,10 +54,10 @@ namespace FileManager.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateFMAdmin(int id, FMAdminForUpdateDto fmAdminForUpdateDto)
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
             
             var fmAdminFromRepo = await _repo.GetFMAdmin(id);
+            if (fmAdminFromRepo == null)
+                return NotFound();            
 
             _mapper.Map(fmAdminForUpdateDto,fmAdminFromRepo);
 

@@ -37,13 +37,6 @@ namespace FileManager.API.Data
             builder.Entity<FileManagerAdmin>()
                 .HasOne(u => u.User);
 
-            builder.Entity<Company>()
-                .HasAlternateKey(c => c.CompanyName);   
-            builder.Entity<Role>()
-                .HasAlternateKey(c => c.RoleName);   
-            builder.Entity<FileManagerAdmin>()
-                .HasAlternateKey(c => c.UserId);   
-
         }
     }
 }

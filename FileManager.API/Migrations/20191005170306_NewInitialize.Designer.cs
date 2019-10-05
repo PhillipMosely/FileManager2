@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileManager.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191005103528_NewInitialize")]
+    [Migration("20191005170306_NewInitialize")]
     partial class NewInitialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,6 @@ namespace FileManager.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CompanyName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateCreated")
@@ -35,8 +34,6 @@ namespace FileManager.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("CompanyName");
 
                     b.ToTable("Companies");
                 });
@@ -88,14 +85,9 @@ namespace FileManager.API.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("UserId1")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("UserId");
-
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("FileManagerAdmin");
                 });
@@ -116,12 +108,9 @@ namespace FileManager.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RoleName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("RoleName");
 
                     b.ToTable("Roles");
                 });
@@ -203,7 +192,7 @@ namespace FileManager.API.Migrations
                 {
                     b.HasOne("FileManager.API.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

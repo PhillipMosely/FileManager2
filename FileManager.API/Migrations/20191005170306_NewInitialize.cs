@@ -13,14 +13,13 @@ namespace FileManager.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CompanyName = table.Column<string>(nullable: false),
+                    CompanyName = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
-                    table.UniqueConstraint("AK_Companies_CompanyName", x => x.CompanyName);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,7 +45,7 @@ namespace FileManager.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    RoleName = table.Column<string>(nullable: false),
+                    RoleName = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false)
@@ -54,7 +53,6 @@ namespace FileManager.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
-                    table.UniqueConstraint("AK_Roles_RoleName", x => x.RoleName);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,16 +98,14 @@ namespace FileManager.API.Migrations
                     SubFolderName = table.Column<string>(nullable: true),
                     FoldersXML = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
-                    UserId1 = table.Column<int>(nullable: false)
+                    DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FileManagerAdmin", x => x.Id);
-                    table.UniqueConstraint("AK_FileManagerAdmin_UserId", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_FileManagerAdmin_Users_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_FileManagerAdmin_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -140,9 +136,9 @@ namespace FileManager.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FileManagerAdmin_UserId1",
+                name: "IX_FileManagerAdmin_UserId",
                 table: "FileManagerAdmin",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRole_RoleId",
