@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileManager.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191005170306_NewInitialize")]
-    partial class NewInitialize
+    [Migration("20191005192739_InitialAgain")]
+    partial class InitialAgain
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,6 +53,12 @@ namespace FileManager.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("FileManagerAdminId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Size")
                         .HasColumnType("INTEGER");
 
@@ -60,6 +66,8 @@ namespace FileManager.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FileManagerAdminId");
 
                     b.ToTable("Files");
                 });
@@ -76,7 +84,7 @@ namespace FileManager.API.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FoldersXML")
+                    b.Property<string>("FolderData")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SubFolderName")
@@ -186,6 +194,15 @@ namespace FileManager.API.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRole");
+                });
+
+            modelBuilder.Entity("FileManager.API.Models.File", b =>
+                {
+                    b.HasOne("FileManager.API.Models.FileManagerAdmin", "FMAdmin")
+                        .WithMany("Files")
+                        .HasForeignKey("FileManagerAdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FileManager.API.Models.FileManagerAdmin", b =>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FileManager.API.Migrations
 {
-    public partial class NewInitialize : Migration
+    public partial class InitialAgain : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,23 +20,6 @@ namespace FileManager.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Files",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Url = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Size = table.Column<int>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Files", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,7 +79,7 @@ namespace FileManager.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<int>(nullable: false),
                     SubFolderName = table.Column<string>(nullable: true),
-                    FoldersXML = table.Column<string>(nullable: true),
+                    FolderData = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false)
                 },
@@ -135,10 +118,40 @@ namespace FileManager.API.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Files",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Size = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    FileManagerAdminId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Files", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Files_FileManagerAdmin_FileManagerAdminId",
+                        column: x => x.FileManagerAdminId,
+                        principalTable: "FileManagerAdmin",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_FileManagerAdmin_UserId",
                 table: "FileManagerAdmin",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Files_FileManagerAdminId",
+                table: "Files",
+                column: "FileManagerAdminId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRole_RoleId",
@@ -154,13 +167,13 @@ namespace FileManager.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FileManagerAdmin");
-
-            migrationBuilder.DropTable(
                 name: "Files");
 
             migrationBuilder.DropTable(
                 name: "UserRole");
+
+            migrationBuilder.DropTable(
+                name: "FileManagerAdmin");
 
             migrationBuilder.DropTable(
                 name: "Roles");

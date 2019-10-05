@@ -8,23 +8,29 @@ namespace FileManager.API.Data
 {
     public class Seed
     {
-        public static void SeedUsers(DataContext context) 
+        public static void SeedData(DataContext context) 
         {
             if (!context.Users.Any())
             {
                 var company = new Company {
-                    CompanyName = "Google"
+                    CompanyName = "Google",
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now
                 };
                 context.Companies.Add(company);
 
                 var role = new Role { 
                     RoleName="Admin",
-                    Description="Administrative Role"};
+                    Description="Administrative Role",
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now};
                 context.Roles.Add(role);
                     
                 var role2 = new Role {
                     RoleName="Users",
-                    Description="User Role"};
+                    Description="User Role",
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now};
                 context.Roles.Add(role2);
 
                 var user = new User {
@@ -63,25 +69,18 @@ namespace FileManager.API.Data
                     User = user,
                     Role = role
                 };
+                context.UserRole.Add(userRole);
+
+                var fmAdmin = new FileManagerAdmin {
+                    User = user,
+                    SubFolderName = "Admin Folder",
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    FolderData = "{\"id\": \"2\",\"parentid\": \"1\",\"text\": \"Hot Chocolate\",\"value\": \"$2.3\"},{\"id\": \"3\",\"parentid\": \"1\",\"text\": \"Peppermint Hot Chocolate\",\"value\": \"$2.3\"},{\"id\": \"4\",\"parentid\": \"1\",\"text\": \"Salted Caramel Hot Chocolate\",\"value\": \"$2.3\"},{\"id\": \"5\",\"parentid\": \"1\",\"text\": \"White Hot Chocolate\",\"value\": \"$2.3\"},{\"text\": \"Chocolate Beverage\",\"id\": \"1\",\"parentid\": \"-1\",\"value\": \"$2.3\"},{\"id\": \"6\",\"text\": \"Espresso Beverage\",\"parentid\": \"-1\",\"value\": \"$2.3\"},{\"id\": \"7\",\"parentid\": \"6\",\"text\": \"Caffe Americano\",\"value\": \"$2.3\"}"
+                };
+                context.FileManagerAdmin.Add(fmAdmin);
 
             }
-
-
-            // if (!context.Users.Any())
-            // {
-            //     var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
-            //     var users = JsonConvert.DeserializeObject<List<User>>(userData);
-            //     foreach (var user in users)
-            //     {
-            //         byte[] passwordHash, passwordSalt;
-            //         CreatePasswordHash("password",out passwordHash, out passwordSalt);
-            //         user.PasswordHash = passwordHash;
-            //         user.PasswordSalt = passwordSalt;
-            //         user.Username = user.Username.ToLower();
-            //         context.Users.Add(user);
-            //     }
-            // }
-
 
             context.SaveChanges();
         }
