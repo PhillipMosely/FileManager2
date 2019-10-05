@@ -80,13 +80,17 @@ namespace FileManager.API.Controllers
         }
 
         
-        [HttpDelete]
+        [HttpDelete("{id}", Name="DeleteCompany")]
         public async Task<IActionResult> DeleteCompany(int id)
         {
             var companyToDelete = await _repo.GetCompany(id);
-            _repo.Delete(companyToDelete);
-            return Ok();
+            if (companyToDelete == null)
+                return NotFound();
 
+            if (await _repo.Delete(companyToDelete))
+                return Ok();
+            
+            throw new Exception($"Updating Company {id} failed on Delete");
         }
     }
 }

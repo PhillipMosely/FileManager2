@@ -16,15 +16,25 @@ namespace FileManager.API.Data
         {
             _context = context;
         }
+
         public void Add<T>(T entity) where T : class
         {
             _context.Add(entity);
+            _context.SaveChanges();
         }
+        // public async Task<T> Add<T>(T entity) where T : class
+        // {
+        //     var newentity = await _context.AddAsync(entity);
+        //     await _context.SaveChangesAsync();
+        //     return newentity;
+        // }
 
 
-        public void Delete<T>(T entity) where T : class
+        public async Task<bool> Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
+            await _context.SaveChangesAsync();     
+            return true;       
         }
 
         public async Task<User> GetUser(int id)

@@ -82,13 +82,17 @@ namespace FileManager.API.Controllers
         }      
 
 
-        [HttpDelete]
+        [HttpDelete("{id}", Name="DeleteFMAdmin")]
         public async Task<IActionResult> DeleteFMAdmin(int id)
         {
             var fmAdminToDelete = await _repo.GetFMAdmin(id);
-            _repo.Delete(fmAdminToDelete);
-            return Ok();
+            if (fmAdminToDelete == null)
+                return NotFound();
 
+            if (await _repo.Delete(fmAdminToDelete))
+                return Ok();
+            
+            throw new Exception($"Updating File Manager Admin {id} failed on Delete");
         }          
     }
 }

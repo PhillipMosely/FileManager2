@@ -85,13 +85,17 @@ namespace FileManager.API.Controllers
             return CreatedAtRoute("AddRoles", new {controller = "Roles", id= createdRole.Id},roleToReturn);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}", Name="DeleteRole")]
         public async Task<IActionResult> DeleteRole(int id)
         {
             var roleToDelete = await _repo.GetRole(id);
-            _repo.Delete(roleToDelete);
-            return Ok();
+            if (roleToDelete == null)
+                return NotFound();
 
+            if (await _repo.Delete(roleToDelete))
+                return Ok();
+            
+            throw new Exception($"Updating Role {id} failed on Delete");
         }
     }
 }
