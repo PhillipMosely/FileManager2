@@ -20,6 +20,7 @@ namespace FileManager.API.Data
 
          Task<PagedList<FileManagerAdmin>> GetFMAdmins(UserParams userParams);
          Task<FileManagerAdmin> GetFMAdmin(int id);
+         Task<FileManagerAdmin> GetFMAdminForUserId(int id);
          Task<FileManagerAdmin> AddFMAdmin(FileManagerAdmin fmAdmin);
          Task<bool> FMAdminExists(int userId);
 

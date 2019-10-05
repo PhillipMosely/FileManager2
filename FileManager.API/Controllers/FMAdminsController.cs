@@ -33,11 +33,23 @@ namespace FileManager.API.Controllers
         public async Task<IActionResult> GetFMAdmin(int id)
         {
             var fmAdminfromRepo = await _repo.GetFMAdmin(id);
+            
 
             var fmAdmin = _mapper.Map<FMAdminForListDto>(fmAdminfromRepo);
 
             return Ok(fmAdmin);
         }
+        
+        [HttpGet("getforuserid/{id}", Name="GetFMAdminForUserId")]
+        public async Task<IActionResult> GetFMAdminForUserId(int id)
+        {
+            var fmAdminfromRepo = await _repo.GetFMAdminForUserId(id);
+
+            var fmAdmin = _mapper.Map<FMAdminForListDto>(fmAdminfromRepo);
+
+            return Ok(fmAdmin);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> GetFMAdmins([FromQuery]UserParams userParams)

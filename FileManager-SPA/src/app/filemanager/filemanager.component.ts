@@ -1,5 +1,8 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
+import { ActivatedRoute } from '@angular/router';
+import { FileManagerAdmin } from 'app/_models/filemanageradmin';
+import { JsonPipe } from '@angular/common';
 
 
 @Component({
@@ -7,48 +10,12 @@ import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
   templateUrl: './filemanager.component.html',
   styleUrls: ['./filemanager.component.css']
 })
-export class FilemanagerComponent implements AfterViewInit {
+export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myTree', {static: false}) myTree: jqxTreeComponent;
   @ViewChild('ContentPanel', {static: false}) ContentPanel: ElementRef;
-  data: any[] =
-  [
-    {
-        'id': '2',
-        'parentid': '1',
-        'text': 'Hot Chocolate',
-        'value': '$2.3'
-    }, {
-        'id': '3',
-        'parentid': '1',
-        'text': 'Peppermint Hot Chocolate',
-        'value': '$2.3'
-    }, {
-        'id': '4',
-        'parentid': '1',
-        'text': 'Salted Caramel Hot Chocolate',
-        'value': '$2.3'
-    }, {
-        'id': '5',
-        'parentid': '1',
-        'text': 'White Hot Chocolate',
-        'value': '$2.3'
-    }, {
-        'text': 'Chocolate Beverage',
-        'id': '1',
-        'parentid': '-1',
-        'value': '$2.3'
-    }, {
-        'id': '6',
-        'text': 'Espresso Beverage',
-        'parentid': '-1',
-        'value': '$2.3'
-    }, {
-        'id': '7',
-        'parentid': '6',
-        'text': 'Caffe Americano',
-        'value': '$2.3'
-    }
-  ];
+
+  data: any[];
+  fmAdmin: FileManagerAdmin;
 
   source = {
     datatype: 'json',
@@ -66,7 +33,7 @@ export class FilemanagerComponent implements AfterViewInit {
 
   records: any = this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
 
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
 
   getWidth(): any {
       if (document.body.offsetWidth < 650) {
@@ -75,7 +42,13 @@ export class FilemanagerComponent implements AfterViewInit {
 
       return 650;
   }
-
+  ngOnInit() {
+      this.route.data.subscribe(data => {
+          this.fmAdmin = data['fmAdmin'];
+      });
+      this.data  = JSON.parse(this.fmAdmin.folderData);
+  }
+  
   ngAfterViewInit() {
       this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
   }

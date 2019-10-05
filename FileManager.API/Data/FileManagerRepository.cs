@@ -124,6 +124,13 @@ namespace FileManager.API.Data
             return fmadmin;
         }
 
+        public async Task<FileManagerAdmin> GetFMAdminForUserId(int id)
+        {
+            var fmadmin = await _context.FileManagerAdmin.FirstOrDefaultAsync(u => u.UserId == id);
+
+            return fmadmin;
+        }
+
         public async Task<FileManagerAdmin> AddFMAdmin(FileManagerAdmin fmAdmin) 
         {
             await _context.FileManagerAdmin.AddAsync(fmAdmin);
