@@ -71,11 +71,11 @@ namespace FileManager.API.Controllers
 
             var companyToAdd = _mapper.Map<Company>(companyForAddDto);
 
-            var createdCompany = _repo.AddCompany(companyToAdd);
+            var createdCompany = await _repo.AddCompany(companyToAdd);
 
             var companyToReturn = _mapper.Map<CompanyForListDto>(createdCompany);
 
-            return CreatedAtRoute("AddCompany", new {controller = "Companys", id= createdCompany.Id},companyToReturn);
+            return CreatedAtRoute("GetCompany", new {controller = "Companys", id= createdCompany.Id},companyToReturn);
         }
 
         

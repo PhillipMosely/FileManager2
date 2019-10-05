@@ -77,11 +77,11 @@ namespace FileManager.API.Controllers
 
             var roleToAdd = _mapper.Map<Role>(roleForAddDto);
 
-            var createdRole = _repo.AddRole(roleToAdd);
+            var createdRole = await _repo.AddRole(roleToAdd);
 
             var roleToReturn = _mapper.Map<RoleForListDto>(createdRole);
 
-            return CreatedAtRoute("AddRoles", new {controller = "Roles", id= createdRole.Id},roleToReturn);
+            return CreatedAtRoute("GetRole", new {controller = "Roles", id= createdRole.Id},roleToReturn);
         }
 
         [HttpDelete("{id}", Name="DeleteRole")]
