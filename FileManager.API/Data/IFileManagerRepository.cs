@@ -30,6 +30,5 @@ namespace FileManager.API.Data
          Task<Role> AddRole(Role role);
          Task<bool> RoleExists(string rolename);
 
-        
     }
 }

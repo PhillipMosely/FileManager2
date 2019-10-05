@@ -79,6 +79,16 @@ namespace FileManager.API.Controllers
             var fmAdminToReturn = _mapper.Map<FMAdminForListDto>(createdFMAdmin);
 
             return CreatedAtRoute("AddFMAdmin", new {controller = "FMAdmins", id= createdFMAdmin.Id},fmAdminToReturn);
-        }        
+        }      
+
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteFMAdmin(int id)
+        {
+            var fmAdminToDelete = await _repo.GetFMAdmin(id);
+            _repo.Delete(fmAdminToDelete);
+            return Ok();
+
+        }          
     }
 }

@@ -63,7 +63,7 @@ namespace FileManager.API.Controllers
         }
 
         [HttpPost("AddCompany")]
-        public async Task<IActionResult> AddRole(CompanyForAddDto companyForAddDto)
+        public async Task<IActionResult> AddCompany(CompanyForAddDto companyForAddDto)
         {
 
             companyForAddDto.CompanyName = companyForAddDto.CompanyName.ToLower();
@@ -74,9 +74,19 @@ namespace FileManager.API.Controllers
 
             var createdCompany = _repo.AddCompany(companyToAdd);
 
-            var companyToReturn = _mapper.Map<RoleForListDto>(createdCompany);
+            var companyToReturn = _mapper.Map<CompanyForListDto>(createdCompany);
 
             return CreatedAtRoute("AddCompany", new {controller = "Companys", id= createdCompany.Id},companyToReturn);
+        }
+
+        
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCompany(int id)
+        {
+            var companyToDelete = await _repo.GetCompany(id);
+            _repo.Delete(companyToDelete);
+            return Ok();
+
         }
     }
 }
