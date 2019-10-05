@@ -6,6 +6,9 @@ import { catchError } from 'rxjs/operators';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { FileManagerAdmin } from 'app/_models/filemanageradmin';
 
+
+// route.params.id
+
 @Injectable()
  export class FileManagerAdminResolver implements Resolve<FileManagerAdmin> {
     constructor(private fmAdminService: FileManagerAdminService,

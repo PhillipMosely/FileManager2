@@ -21,7 +21,7 @@ import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AppRoutes } from './app.routing';
 import { AuthService } from './_services/auth.service';
 import { SweetAlertService } from './_services/sweetalert.service';
-import { FileManagerAdminResolver } from './_resolvers/filemanageradmin.resolver';
+import { FileManagerAdminService } from './_services/filemanageradmin.service';
 
 
 export function tokenGetter() {
@@ -60,7 +60,7 @@ export function tokenGetter() {
     providers: [
         AuthService,
         SweetAlertService,
-        FileManagerAdminResolver
+        FileManagerAdminService
     ],
     bootstrap:    [ AppComponent ]
 })

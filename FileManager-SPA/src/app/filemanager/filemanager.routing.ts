@@ -7,7 +7,6 @@ export const FilemanagerRoutes: Routes = [{
     path: '',
     children: [ {
       path: 'filemanager',
-      component: FilemanagerComponent,
-      resolve: {fmAdmin: FileManagerAdminResolver}
+      component: FilemanagerComponent
   }]
 }];

@@ -2,7 +2,8 @@ import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angula
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { ActivatedRoute } from '@angular/router';
 import { FileManagerAdmin } from 'app/_models/filemanageradmin';
-import { JsonPipe } from '@angular/common';
+import { FileManagerAdminService } from 'app/_services/filemanageradmin.service';
+import { SweetAlertService } from 'app/_services/sweetalert.service';
 
 
 @Component({
@@ -33,7 +34,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   records: any = this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, 
+              private fileManagerAdminService: FileManagerAdminService,
+              private sweetAlertService: SweetAlertService) {}
 
   getWidth(): any {
       if (document.body.offsetWidth < 650) {
@@ -43,12 +46,17 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       return 650;
   }
   ngOnInit() {
-      this.route.data.subscribe(data => {
-          this.fmAdmin = data['fmAdmin'];
-      });
-      this.data  = JSON.parse(this.fmAdmin.folderData);
+     this.fileManagerAdminService.getFMAdminForUserId(1)
+        .subscribe(
+            (res: FileManagerAdmin) => {
+                this.fmAdmin = res;
+                this.data  = JSON.parse(this.fmAdmin.folderData);
+            }, error => {
+                this.sweetAlertService.error('Could not load FM admin');
+            }
+        )
   }
-  
+
   ngAfterViewInit() {
       this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
   }
