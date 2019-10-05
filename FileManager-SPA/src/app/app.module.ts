@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule} from '@angular/common/http';
 import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
-import { jqxButtonModule } from 'jqwidgets-ng/jqxbuttons';
+import { jqxSplitterModule } from 'jqwidgets-ng/jqxsplitter';
 
 import { AppComponent } from './app.component';
 
@@ -42,7 +42,7 @@ export function tokenGetter() {
         FooterModule,
         FixedPluginModule,
         jqxTreeModule,
-        jqxButtonModule,
+        jqxSplitterModule,
         JwtModule.forRoot({
             config: {
                tokenGetter,

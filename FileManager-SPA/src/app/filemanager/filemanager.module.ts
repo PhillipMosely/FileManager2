@@ -3,12 +3,14 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
-import { jqxExpanderModule } from 'jqwidgets-ng/jqxexpander';
+import { jqxSplitterModule} from 'jqwidgets-ng/jqxsplitter'
 import {
   AgmCoreModule
 } from '@agm/core';
+
 import { FilemanagerRoutes } from './filemanager.routing';
 import { FilemanagerComponent } from './filemanager.component';
+
 
 @NgModule({
   imports: [
@@ -16,7 +18,7 @@ import { FilemanagerComponent } from './filemanager.component';
     RouterModule.forChild(FilemanagerRoutes),
     FormsModule,
     jqxTreeModule,
-    jqxExpanderModule,
+    jqxSplitterModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
