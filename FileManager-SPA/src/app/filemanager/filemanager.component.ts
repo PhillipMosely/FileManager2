@@ -30,17 +30,15 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   tableDataAdaptor: any;
   tableColumns: any[] =
   [
-      { text: 'Actions', cellsAlign: 'right', align: 'right', width: 120,
+      { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120,
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
-        const buttonedit = '<a href="javascript:void(0)" class="btn btn-warning btn-link btn-icon edit">' +
+        const buttonedit = '<a href="javascript:void(0)" class="btn btn-primary btn-link btn-icon edit" title="Edit File">' +
                          '<i class="fa fa-edit"></i></a>';
-        const buttondel = '<a href="javascript:void(0)" class="btn btn-danger btn-link btn-icon remove">' +
+        const buttondel = '<a href="javascript:void(0)" class="btn btn-warning btn-link btn-icon remove" title="Delete File">' +
                          '<i class="fa fa-times"></i></a>';
         const item = '<div>' + buttonedit + buttondel + '</div>';
-
         return item;
-        }
-      },
+      }},
       { text: 'File Name', cellsAlign: 'left', align: 'left', dataField: 'fileName', width: 300 },
       { text: 'Size (kb)', dataField: 'size', cellsFormat: 'd', cellsAlign: 'center', align: 'center', width: 120 },
       { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' },
