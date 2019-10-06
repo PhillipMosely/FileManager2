@@ -13,9 +13,9 @@ import { SweetAlertService } from 'app/_services/sweetalert.service';
 })
 export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myTree', {static: false}) myTree: jqxTreeComponent;
-  @ViewChild('ContentPanel', {static: false}) ContentPanel: ElementRef;
+  @ViewChild('ContentPanel', {static: false }) ContentPanel: ElementRef;
 
-  data: any[];
+  data: any[] = [{'id': '1', 'parentid': '-1', 'text': 'Admin Setup Folder', 'value': 'value field'}];
   fmAdmin: FileManagerAdmin;
   source = {
     datatype: 'json',
@@ -50,7 +50,22 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
             (res: FileManagerAdmin) => {
                 this.fmAdmin = res;
                 this.data  = JSON.parse(this.fmAdmin.folderData);
-                this.sweetAlertService.message(this.fmAdmin.subFolderName);
+                this.source = {
+                    datatype: 'json',
+                    datafields: [
+                        { name: 'id' },
+                        { name: 'parentid' },
+                        { name: 'text' },
+                        { name: 'value' }
+                    ],
+                    id: 'id',
+                    localdata: this.data
+                    };
+                  this.dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
+                  this.records = this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
+                  this.myTree.source(this.records);
+                  this.myTree.refresh();
+                this.sweetAlertService.message(this.fmAdmin.folderData);
             }, error => {
                 this.sweetAlertService.error('Could not load FM admin');
             }

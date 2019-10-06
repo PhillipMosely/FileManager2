@@ -15,7 +15,7 @@ import { FileManagerAdmin } from 'app/_models/filemanageradmin';
                 private router: Router, private sweetAlertService: SweetAlertService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<FileManagerAdmin> {
-        return this.fmAdminService.getFMAdminForUserId(route.params.id).pipe(
+        return this.fmAdminService.getFMAdminForUserId(1).pipe(
             catchError(error => {
                 this.sweetAlertService.error('Problem retrieving data');
                 this.router.navigate(['/']);
