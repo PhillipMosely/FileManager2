@@ -27,9 +27,11 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   tableDataAdaptor: any;
   tableColumns: any[] =
   [
-      { text: 'File Name', cellsAlign: 'center', align: 'center', dataField: 'filename', width: 150 },
-      { text: 'Url', cellsAlign: 'center', align: 'center', dataField: 'url', width: 250 },
-      { text: 'Size', dataField: 'size', cellsFormat: 'd', cellsAlign: 'center', align: 'center', width: 120 }
+      { text: 'File Name', cellsAlign: 'center', align: 'center', dataField: 'fileName', width: 150 },
+      { text: 'Size', dataField: 'size', cellsFormat: 'd', cellsAlign: 'center', align: 'center', width: 120 },
+      { text: 'Date Modified', datafield: 'dateModified', width: 120, cellsFormat: 'D' },
+      { text: 'Ext', cellsAlign: 'center', align: 'center', dataField: 'ext', width: 120 },
+      { text: 'URL', cellsAlign: 'center', align: 'center', dataField: 'url', width: 250 },
   ];
 
   constructor(private route: ActivatedRoute,
@@ -81,16 +83,18 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
                 this.tableSource = {
                     dataType: 'json',
                     dataFields: [
-                        { name: 'filename', type: 'string' },
+                        { name: 'fileName', type: 'string' },
+                        { name: 'ext', type: 'string' },
                         { name: 'url', type: 'string' },
                         { name: 'size', type: 'number' },
-                        { name: 'createdDate', type: 'date' },
+                        { name: 'dateCreated', type: 'date' },
+                        { name: 'dateModified', type: 'date' },
                         { name: 'description', type: 'string' }
                     ],
                     localdata: res
                 };
                 this.tableDataAdaptor = new jqx.dataAdapter(this.tableSource);
-                this.sweetAlertService.message(this.fmAdmin.id.toString() + event.args.element.id.toString())
+                // this.sweetAlertService.message(this.fmAdmin.id.toString() + event.args.element.id.toString())
                 // var result = Object.keys(object).map(e=>object[e]);
             }, error => {
                 this.sweetAlertService.error('Could not load Files');
