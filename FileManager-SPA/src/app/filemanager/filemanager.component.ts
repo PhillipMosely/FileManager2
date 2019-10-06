@@ -30,18 +30,28 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   tableDataAdaptor: any;
   tableColumns: any[] =
   [
+      { text: 'Actions', cellsAlign: 'right', align: 'right', width: 120,
+      cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
+        const buttonedit = '<a href="javascript:void(0)" class="btn btn-warning btn-link btn-icon edit">' +
+                         '<i class="fa fa-edit"></i></a>';
+        const buttondel = '<a href="javascript:void(0)" class="btn btn-danger btn-link btn-icon remove">' +
+                         '<i class="fa fa-times"></i></a>';
+        const item = '<div>' + buttonedit + buttondel + '</div>';
+
+        return item;
+        }
+      },
       { text: 'File Name', cellsAlign: 'left', align: 'left', dataField: 'fileName', width: 300 },
       { text: 'Size (kb)', dataField: 'size', cellsFormat: 'd', cellsAlign: 'center', align: 'center', width: 120 },
       { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' },
       { text: 'Ext', cellsAlign: 'center', align: 'center', dataField: 'ext', width: 120 },
-      { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 300 },
+      { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 300 }
   ];
-  rowIndex: number;
-  myAddButton: jqwidgets.jqxButton;
+
+
+
   myEditButton: jqwidgets.jqxButton;
   myDeleteButton: jqwidgets.jqxButton;
-  myCancelButton: jqwidgets.jqxButton;
-  myUpdateButton: jqwidgets.jqxButton;
 
   constructor(private route: ActivatedRoute,
               private fileManagerAdminService: FileManagerAdminService,
@@ -83,6 +93,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
       this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
+
   }
   select(event: any): void {
       if (this.fmAdmin != null) {
@@ -108,6 +119,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         );
 
       }
+  }
+
+  actionColumn(): any {
+
   }
 
 }

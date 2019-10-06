@@ -11,7 +11,7 @@
             </jqxTree>
           </div>
           <div #ContentPanel  >
-              <jqxDataTable #myDataTable
+              <jqxDataTable #myDataTable [autoRowHeight]="false"
                 [width]="getTableWidth()" [height]="'100%'" [source]="tableDataAdaptor" [columns]="tableColumns"
                 [pageable]="true" [altRows]="true" [filterable]="true"
                 [pagerButtonsCount]="8">
