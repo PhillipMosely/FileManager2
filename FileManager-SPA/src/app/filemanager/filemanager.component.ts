@@ -28,10 +28,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   tableColumns: any[] =
   [
       { text: 'File Name', cellsAlign: 'center', align: 'center', dataField: 'fileName', width: 150 },
-      { text: 'Size', dataField: 'size', cellsFormat: 'd', cellsAlign: 'center', align: 'center', width: 120 },
-      { text: 'Date Modified', datafield: 'dateModified', width: 120, cellsFormat: 'D' },
+      { text: 'Size (kb)', dataField: 'size', cellsFormat: 'd', cellsAlign: 'center', align: 'center', width: 120 },
+      { text: 'Date Modified', datafield: 'dateModified', width: 120, cellsFormat: 'd' },
       { text: 'Ext', cellsAlign: 'center', align: 'center', dataField: 'ext', width: 120 },
-      { text: 'URL', cellsAlign: 'center', align: 'center', dataField: 'url', width: 250 },
+      { text: 'URL', cellsAlign: 'center', align: 'center', dataField: 'url', width: 300 },
   ];
 
   constructor(private route: ActivatedRoute,
@@ -40,11 +40,11 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
               private sweetAlertService: SweetAlertService) {}
 
   getWidth(): any {
-      if (document.body.offsetWidth < 1000) {
+      if (document.body.offsetWidth < 1200) {
           return '90%';
       }
 
-      return 1000;
+      return 1200;
   }
   ngOnInit() {
      this.fileManagerAdminService.getFMAdminForUserId(2)

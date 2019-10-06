@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileManager.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191006100226_NewInitializationafterFilesUpdate")]
-    partial class NewInitializationafterFilesUpdate
+    [Migration("20191006121314_FileSizeFieldChangeNewInit")]
+    partial class FileSizeFieldChangeNewInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,8 +65,8 @@ namespace FileManager.API.Migrations
                     b.Property<int>("NodeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Size")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("Size")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");

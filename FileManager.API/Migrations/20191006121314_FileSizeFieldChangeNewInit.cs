@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FileManager.API.Migrations
 {
-    public partial class NewInitializationafterFilesUpdate : Migration
+    public partial class FileSizeFieldChangeNewInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -128,7 +128,7 @@ namespace FileManager.API.Migrations
                     Ext = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Size = table.Column<int>(nullable: false),
+                    Size = table.Column<double>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     FileManagerAdminId = table.Column<int>(nullable: false),
