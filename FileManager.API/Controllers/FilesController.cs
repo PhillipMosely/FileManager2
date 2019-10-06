@@ -39,14 +39,15 @@ namespace FileManager.API.Controllers
             return Ok(file);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetFiles([FromQuery]UserParams userParams)
+        [HttpGet("{fmAdminId}/{nodeId}")]
+        public async Task<IActionResult> GetFiles([FromQuery]UserParams userParams, 
+                                                  int fmAdminId, int nodeId)
         {
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var userFromRepo = await _repo.GetUser(currentUserId);
             userParams.UserId = currentUserId;
  
-            var files = await _repo.GetFiles(userParams);
+            var files = await _repo.GetFiles(userParams, fmAdminId, nodeId);
             var filesToReturn = _mapper.Map<IEnumerable<FileForListDto>>(files);
             Response.AddPagination(files.CurrentPage,files.PageSize,files.TotalCount,files.TotalPages);
             return Ok(filesToReturn);

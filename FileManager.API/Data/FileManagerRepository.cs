@@ -51,9 +51,11 @@ namespace FileManager.API.Data
             return File;
         }
 
-        public async Task<PagedList<File>> GetFiles(UserParams userParams)
+        public async Task<PagedList<File>> GetFiles(UserParams userParams, int fmAdminId, int nodeId)
         {
-            var files = _context.Files.OrderBy(u => u.FileName).AsQueryable();
+            var files = _context.Files
+                .Where(u => u.FileManagerAdminId == fmAdminId && u.NodeId == nodeId)
+                .OrderBy(u => u.FileName).AsQueryable();
 
             return await PagedList<File>.CreateAsync(files,userParams.PageNumber,userParams.PageSize);
 

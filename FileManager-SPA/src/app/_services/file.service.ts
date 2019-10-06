@@ -15,7 +15,7 @@ export class FileService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
-  getFiles(page?, itemsPerPage?, userParams?, likesParams?): Observable<PaginatedResult<File[]>> {
+  getFiles(fmAdminId: number, nodeId: number, page?, itemsPerPage?): Observable<PaginatedResult<File[]>> {
     const paginatedResult: PaginatedResult<File[]> = new PaginatedResult<File[]>();
 
     let params = new HttpParams();
@@ -24,7 +24,7 @@ export class FileService {
       params = params.append('pageSize', itemsPerPage);
     }
 
-    return this.http.get<File[]>(this.baseUrl + 'files', { observe: 'response', params})
+    return this.http.get<File[]>(this.baseUrl + 'files/' + fmAdminId + '/' + nodeId, { observe: 'response', params})
       .pipe(
         map(response => {
           paginatedResult.result = response.body;
@@ -34,10 +34,6 @@ export class FileService {
           return paginatedResult;
         })
       );
-  }
-
-  getFilesForFMAdminIdUserId(fmAdminId, UserId): Observable<File> {
-    return this.http.get<File>(this.baseUrl + 'files/getforfmadminiduserid/' + fmAdminId + '/' + UserId);
   }
 
   getFile(id): Observable<File> {

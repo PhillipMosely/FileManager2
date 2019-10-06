@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../_models/user';
 import { FileManagerAdmin } from '../_models/filemanageradmin';
 import { PaginatedResult } from '../_models/Pagination';
 import { map } from 'rxjs/operators';
@@ -15,7 +14,7 @@ export class FileManagerAdminService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
-  getFMAdmins(page?, itemsPerPage?, userParams?, likesParams?): Observable<PaginatedResult<FileManagerAdmin[]>> {
+  getFMAdmins(page?, itemsPerPage?): Observable<PaginatedResult<FileManagerAdmin[]>> {
     const paginatedResult: PaginatedResult<FileManagerAdmin[]> = new PaginatedResult<FileManagerAdmin[]>();
 
     let params = new HttpParams();

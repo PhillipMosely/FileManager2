@@ -25,7 +25,7 @@ namespace FileManager.API.Data
          Task<bool> FMAdminExists(int userId);
 
          Task<File> GetFile(int id);
-         Task<PagedList<File>> GetFiles(UserParams userParams);
+         Task<PagedList<File>> GetFiles(UserParams userParams, int fmAdminId, int nodeId);
          Task<File> AddFile(File file);
          Task<bool> FileExists(string filename, int fmadminid, int nodeid);
 

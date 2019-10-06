@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FileManagerAdmin } from 'app/_models/filemanageradmin';
 import { FileManagerAdminService } from 'app/_services/filemanageradmin.service';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
+import { FileService } from 'app/_services/file.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   constructor(private route: ActivatedRoute,
               private fileManagerAdminService: FileManagerAdminService,
+              private fileService: FileService,
               private sweetAlertService: SweetAlertService) {}
 
   getWidth(): any {
@@ -34,10 +36,11 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       return 1000;
   }
   ngOnInit() {
-     this.fileManagerAdminService.getFMAdminForUserId(1)
+     this.fileManagerAdminService.getFMAdminForUserId(2)
         .subscribe(
             (res: FileManagerAdmin) => {
                 this.fmAdmin = res;
+                this.sweetAlertService.message(this.fmAdmin.folderData);
                 this.data  = JSON.parse(this.fmAdmin.folderData);
                 this.source = {
                     datatype: 'json',
@@ -64,6 +67,15 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
   }
   select(event: any): void {
-      this.ContentPanel.nativeElement.innerHTML = '<div style=\'margin: 10px;\'>' + event.args.element.id + '</div>';
+      if (this.fmAdmin != null) {
+        var files = this.fileService.getFiles(this.fmAdmin.id, event.args.element.id, 1, 20 );
+        // this.ContentPanel.nativeElement.innerHTML = '<div style=\'margin: 10px;\'>' + event.args.element.id + '</div>';
+        this.ContentPanel.nativeElement.innerHTML = '<div style=\'margin: 10px;\'>' + 'test' + '</div>';
+
+      }
+  }
+
+  getFiles() {
+      
   }
 }
