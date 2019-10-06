@@ -15,22 +15,11 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myTree', {static: false}) myTree: jqxTreeComponent;
   @ViewChild('ContentPanel', {static: false }) ContentPanel: ElementRef;
 
-  data: any[] = [{'id': '1', 'parentid': '-1', 'text': 'Admin Setup Folder', 'value': 'value field'}];
+  data: any[];
   fmAdmin: FileManagerAdmin;
-  source = {
-    datatype: 'json',
-    datafields: [
-        { name: 'id' },
-        { name: 'parentid' },
-        { name: 'text' },
-        { name: 'value' }
-    ],
-    id: 'id',
-    localdata: this.data
-    };
-
-  dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
-  records = this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
+  source: any;
+  dataAdapter: any;
+  records: any;
 
 
   constructor(private route: ActivatedRoute,
@@ -65,7 +54,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
                   this.records = this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
                   this.myTree.source(this.records);
                   this.myTree.refresh();
-                this.sweetAlertService.message(this.fmAdmin.folderData);
             }, error => {
                 this.sweetAlertService.error('Could not load FM admin');
             }
