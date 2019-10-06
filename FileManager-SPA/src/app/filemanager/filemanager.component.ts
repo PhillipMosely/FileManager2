@@ -21,8 +21,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
   @ViewChild('events', {static: false}) events: ElementRef;
 
-
-
   data: any[];
   fmAdmin: FileManagerAdmin;
   source: any;
@@ -51,28 +49,16 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 300 }
   ];
 
-
-
-  myEditButton: jqwidgets.jqxButton;
-  myDeleteButton: jqwidgets.jqxButton;
-
   constructor(private route: ActivatedRoute,
               private fileManagerAdminService: FileManagerAdminService,
               private fileService: FileService,
               private sweetAlertService: SweetAlertService) {}
 
-//   getTableWidth(): Number {
-//       this.tableColumns.forEach(element => {
-//           this.tableWidth += element.width;
-//       });
-//       return this.tableWidth;
-//   }
-    getTableWidth(): any {
-    if (document.body.offsetWidth < 850) {
-      return '90%';
-    }
-
-    return 850;
+  getTableWidth(): Number {
+      this.tableColumns.forEach(element => {
+          this.tableWidth += element.width;
+      });
+      return this.tableWidth;
   }
 
   ngOnInit() {
@@ -104,7 +90,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
       this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
-
   }
   select(event: any): void {
       if (this.fmAdmin != null) {
