@@ -1,8 +1,9 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace FileManager.API.Models
+namespace FileManager.API.Dtos
 {
-    public class File
+    public class FileForListDto
     {
         public int Id { get; set; }
         public string FileName { get; set; }
@@ -12,8 +13,6 @@ namespace FileManager.API.Models
         public int Size { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
-        public int FileManagerAdminId { get; set; }
-        public virtual FileManagerAdmin FMAdmin { get; set; }
-
+        public int FileManagerAdminId { get; set; }        
     }
 }

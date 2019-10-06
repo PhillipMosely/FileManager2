@@ -110,7 +110,7 @@ namespace FileManager.API.Controllers
             if (await _repo.Delete(fmAdminToDelete))
                 return Ok();
             
-            throw new Exception($"Updating File Manager Admin {id} failed on Delete");
+            throw new Exception($"File Manager Admin {id} failed on Delete");
         }          
     }
 }

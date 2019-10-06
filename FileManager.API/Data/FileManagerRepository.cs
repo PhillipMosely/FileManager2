@@ -22,13 +22,6 @@ namespace FileManager.API.Data
             _context.Add(entity);
             _context.SaveChanges();
         }
-        // public async Task<T> Add<T>(T entity) where T : class
-        // {
-        //     var newentity = await _context.AddAsync(entity);
-        //     await _context.SaveChangesAsync();
-        //     return newentity;
-        // }
-
 
         public async Task<bool> Delete<T>(T entity) where T : class
         {
@@ -57,6 +50,26 @@ namespace FileManager.API.Data
 
             return File;
         }
+
+        public async Task<PagedList<File>> GetFiles(UserParams userParams)
+        {
+            var files = _context.File.OrderBy(u => u.FileName).AsQueryable();
+
+            return await PagedList<File>.CreateAsync(files,userParams.PageNumber,userParams.PageSize);
+
+        }
+        public async Task<File> AddFile(File file) 
+        {
+            await _context.File.AddAsync(file);
+            await _context.SaveChangesAsync();
+            return file; 
+        }
+        public async Task<bool> FileExists(string filename, int fmadminid)
+        {
+            if (await _context.File.AnyAsync(x => x.FileName == filename && x.id == fmadminid))
+                return true;
+            return false;
+        }        
         public async Task<Role> GetRole(int id)
         {
             var Role = await _context.Roles.FirstOrDefaultAsync(p => p.Id == id);

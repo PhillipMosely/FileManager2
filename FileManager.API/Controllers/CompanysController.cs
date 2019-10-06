@@ -89,7 +89,7 @@ namespace FileManager.API.Controllers
             if (await _repo.Delete(companyToDelete))
                 return Ok();
             
-            throw new Exception($"Updating Company {id} failed on Delete");
+            throw new Exception($"Company {id} failed on Delete");
         }
     }
 }

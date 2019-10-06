@@ -94,7 +94,7 @@ namespace FileManager.API.Controllers
             if (await _repo.Delete(roleToDelete))
                 return Ok();
             
-            throw new Exception($"Updating Role {id} failed on Delete");
+            throw new Exception($"Role {id} failed on Delete");
         }
     }
 }
