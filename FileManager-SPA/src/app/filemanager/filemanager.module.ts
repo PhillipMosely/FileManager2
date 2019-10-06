@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { jqxButtonModule } from 'jqwidgets-ng/jqxbuttons';
 import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterModule} from 'jqwidgets-ng/jqxsplitter';
 import { jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
@@ -21,6 +22,7 @@ import { FilemanagerComponent } from './filemanager.component';
     jqxTreeModule,
     jqxSplitterModule,
     jqxDataTableModule,
+    jqxButtonModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })

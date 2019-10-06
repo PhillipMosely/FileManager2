@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, Renderer } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { jqxDataTableComponent } from 'jqwidgets-ng/jqxdatatable';
+import { jqxButtonComponent } from 'jqwidgets-ng/jqxbuttons'; 
 import { ActivatedRoute } from '@angular/router';
 import { FileManagerAdmin } from 'app/_models/filemanageradmin';
 import { FileManagerAdminService } from 'app/_services/filemanageradmin.service';
@@ -18,6 +19,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myTree', {static: false}) myTree: jqxTreeComponent;
   @ViewChild('ContentPanel', {static: false }) ContentPanel: ElementRef;
   @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
+  @ViewChild('events', {static: false}) events: ElementRef;
+
+
 
   data: any[];
   fmAdmin: FileManagerAdmin;
@@ -32,11 +36,12 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   [
       { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120,
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
-        const buttonedit = '<a href="javascript:void(0)" class="btn btn-primary btn-link btn-icon edit" title="Edit File">' +
-                         '<i class="fa fa-edit"></i></a>';
-        const buttondel = '<a href="javascript:void(0)" class="btn btn-warning btn-link btn-icon remove" title="Delete File">' +
-                         '<i class="fa fa-times"></i></a>';
+        const buttonedit = '<button (click)="" class="btn btn-primary btn-link btn-icon edit rowedit"' +
+                         ' title="Edit File"><i class="fa fa-edit"></i></button>';
+        const buttondel = '<button (click)="" class="btn btn-warning btn-link btn-icon remove rowdelete"' +
+                         ' title="Delete File"><i class="fa fa-times"></i></button>';
         const item = '<div>' + buttonedit + buttondel + '</div>';
+
         return item;
       }},
       { text: 'File Name', cellsAlign: 'left', align: 'left', dataField: 'fileName', width: 300 },
@@ -56,12 +61,20 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
               private fileService: FileService,
               private sweetAlertService: SweetAlertService) {}
 
-  getTableWidth(): Number {
-      this.tableColumns.forEach(element => {
-          this.tableWidth += element.width;
-      });
-      return this.tableWidth;
+//   getTableWidth(): Number {
+//       this.tableColumns.forEach(element => {
+//           this.tableWidth += element.width;
+//       });
+//       return this.tableWidth;
+//   }
+    getTableWidth(): any {
+    if (document.body.offsetWidth < 850) {
+      return '90%';
+    }
+
+    return 850;
   }
+
   ngOnInit() {
      this.fileManagerAdminService.getFMAdminForUserId(2)
         .subscribe(
@@ -111,6 +124,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
                     localdata: res
                 };
                 this.tableDataAdaptor = new jqx.dataAdapter(this.tableSource);
+
             }, error => {
                 this.sweetAlertService.error('Could not load Files');
             }
@@ -119,8 +133,21 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       }
   }
 
-  actionColumn(): any {
+  renderedRowButtons(fileService: FileService) {
+    const editbuttons = document.getElementsByClassName('rowedit');
+    for (let i = 0; i < editbuttons.length; i++) {
+        editbuttons[i].addEventListener('click', () => {
+            alert('edit');
+        });
+    }
 
-  }
+    const delbuttons = document.getElementsByClassName('rowdelete');
+    for (let i = 0; i < delbuttons.length; i++) {
+        delbuttons[i].addEventListener('click', () => {
+            alert('edit');
+        });
+    }
+  };
+
 
 }
