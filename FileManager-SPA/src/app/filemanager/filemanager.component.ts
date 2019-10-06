@@ -17,7 +17,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   data: any[];
   fmAdmin: FileManagerAdmin;
-
   source = {
     datatype: 'json',
     datafields: [
@@ -28,22 +27,22 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     ],
     id: 'id',
     localdata: this.data
-  };
+    };
 
   dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
+  records = this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
 
-  records: any = this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
               private fileManagerAdminService: FileManagerAdminService,
               private sweetAlertService: SweetAlertService) {}
 
   getWidth(): any {
-      if (document.body.offsetWidth < 650) {
+      if (document.body.offsetWidth < 1000) {
           return '90%';
       }
 
-      return 650;
+      return 1000;
   }
   ngOnInit() {
      this.fileManagerAdminService.getFMAdminForUserId(1)
@@ -51,6 +50,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
             (res: FileManagerAdmin) => {
                 this.fmAdmin = res;
                 this.data  = JSON.parse(this.fmAdmin.folderData);
+                this.sweetAlertService.message(this.fmAdmin.subFolderName);
             }, error => {
                 this.sweetAlertService.error('Could not load FM admin');
             }
