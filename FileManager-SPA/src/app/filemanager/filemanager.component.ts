@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
+import { jqxDataTableComponent } from 'jqwidgets-ng/jqxdatatable';
 import { ActivatedRoute } from '@angular/router';
 import { FileManagerAdmin } from 'app/_models/filemanageradmin';
 import { FileManagerAdminService } from 'app/_services/filemanageradmin.service';
@@ -16,6 +17,7 @@ import { PaginatedResult } from 'app/_models/Pagination';
 export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myTree', {static: false}) myTree: jqxTreeComponent;
   @ViewChild('ContentPanel', {static: false }) ContentPanel: ElementRef;
+  @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
 
   data: any[];
   fmAdmin: FileManagerAdmin;
@@ -23,28 +25,34 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   dataAdapter: any;
   records: any;
 
+  tableWidth: number;
   tableSource: any;
   tableDataAdaptor: any;
   tableColumns: any[] =
   [
-      { text: 'File Name', cellsAlign: 'center', align: 'center', dataField: 'fileName', width: 150 },
+      { text: 'File Name', cellsAlign: 'left', align: 'left', dataField: 'fileName', width: 300 },
       { text: 'Size (kb)', dataField: 'size', cellsFormat: 'd', cellsAlign: 'center', align: 'center', width: 120 },
-      { text: 'Date Modified', datafield: 'dateModified', width: 120, cellsFormat: 'd' },
+      { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' },
       { text: 'Ext', cellsAlign: 'center', align: 'center', dataField: 'ext', width: 120 },
-      { text: 'URL', cellsAlign: 'center', align: 'center', dataField: 'url', width: 300 },
+      { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 300 },
   ];
+  rowIndex: number;
+  myAddButton: jqwidgets.jqxButton;
+  myEditButton: jqwidgets.jqxButton;
+  myDeleteButton: jqwidgets.jqxButton;
+  myCancelButton: jqwidgets.jqxButton;
+  myUpdateButton: jqwidgets.jqxButton;
 
   constructor(private route: ActivatedRoute,
               private fileManagerAdminService: FileManagerAdminService,
               private fileService: FileService,
               private sweetAlertService: SweetAlertService) {}
 
-  getWidth(): any {
-      if (document.body.offsetWidth < 1200) {
-          return '90%';
-      }
-
-      return 1200;
+  getTableWidth(): Number {
+      this.tableColumns.forEach(element => {
+          this.tableWidth += element.width;
+      });
+      return this.tableWidth;
   }
   ngOnInit() {
      this.fileManagerAdminService.getFMAdminForUserId(2)
@@ -94,8 +102,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
                     localdata: res
                 };
                 this.tableDataAdaptor = new jqx.dataAdapter(this.tableSource);
-                // this.sweetAlertService.message(this.fmAdmin.id.toString() + event.args.element.id.toString())
-                // var result = Object.keys(object).map(e=>object[e]);
             }, error => {
                 this.sweetAlertService.error('Could not load Files');
             }

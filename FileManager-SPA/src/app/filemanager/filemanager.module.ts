@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterModule} from 'jqwidgets-ng/jqxsplitter';
 import { jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
+import { jqxInputModule } from 'jqwidgets-ng/jqxinput';
 import {
   AgmCoreModule
 } from '@agm/core';
@@ -21,6 +22,7 @@ import { FilemanagerComponent } from './filemanager.component';
     jqxTreeModule,
     jqxSplitterModule,
     jqxDataTableModule,
+    jqxInputModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
