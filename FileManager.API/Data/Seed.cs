@@ -70,15 +70,32 @@ namespace FileManager.API.Data
                     Role = role
                 };
                 context.UserRole.Add(userRole);
+                
+                var userRole2 = new UserRole {
+                    User = user2,
+                    Role = role2
+                };
+                context.UserRole.Add(userRole2);                
 
                 var fmAdmin = new FileManagerAdmin {
-                    User = user,
+                    User = user2,
                     SubFolderName = "Admin Folder",
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
                     FolderData = "[{\"id\": \"2\",\"parentid\": \"1\",\"text\": \"Hot Chocolate\",\"value\": \"$2.3\"},{\"id\": \"3\",\"parentid\": \"1\",\"text\": \"Peppermint Hot Chocolate\",\"value\": \"$2.3\"},{\"id\": \"4\",\"parentid\": \"1\",\"text\": \"Salted Caramel Hot Chocolate\",\"value\": \"$2.3\"},{\"id\": \"5\",\"parentid\": \"1\",\"text\": \"White Hot Chocolate\",\"value\": \"$2.3\"},{\"text\": \"Chocolate Beverage\",\"id\": \"1\",\"parentid\": \"-1\",\"value\": \"$2.3\"},{\"id\": \"6\",\"text\": \"Espresso Beverage\",\"parentid\": \"-1\",\"value\": \"$2.3\"},{\"id\": \"7\",\"parentid\": \"6\",\"text\": \"Caffe Americano\",\"value\": \"$2.3\"}]"
                 };
                 context.FileManagerAdmin.Add(fmAdmin);
+
+                var file = new File {
+                    FMAdmin = fmAdmin,
+                    FileName = "user.png",
+                    Ext = "png",
+                    Url = "./assets/img/user.png",
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    NodeId = 2
+                };
+                context.Files.Add(file);
 
             }
 

@@ -53,20 +53,21 @@ namespace FileManager.API.Data
 
         public async Task<PagedList<File>> GetFiles(UserParams userParams)
         {
-            var files = _context.File.OrderBy(u => u.FileName).AsQueryable();
+            var files = _context.Files.OrderBy(u => u.FileName).AsQueryable();
 
             return await PagedList<File>.CreateAsync(files,userParams.PageNumber,userParams.PageSize);
 
         }
         public async Task<File> AddFile(File file) 
         {
-            await _context.File.AddAsync(file);
+            await _context.Files.AddAsync(file);
             await _context.SaveChangesAsync();
             return file; 
         }
-        public async Task<bool> FileExists(string filename, int fmadminid)
+        public async Task<bool> FileExists(string filename, int fmadminid, int nodeid)
         {
-            if (await _context.File.AnyAsync(x => x.FileName == filename && x.id == fmadminid))
+            if (await _context.Files.AnyAsync(x => x.FileName == filename && 
+                                              x.Id == fmadminid && x.NodeId == nodeid))
                 return true;
             return false;
         }        

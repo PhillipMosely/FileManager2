@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FileManager.API.Migrations
 {
-    public partial class InitialAgain : Migration
+    public partial class NewInitializationafterFilesUpdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -124,13 +124,15 @@ namespace FileManager.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
+                    FileName = table.Column<string>(nullable: true),
+                    Ext = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Size = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
-                    FileManagerAdminId = table.Column<int>(nullable: false)
+                    FileManagerAdminId = table.Column<int>(nullable: false),
+                    NodeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

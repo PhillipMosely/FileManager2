@@ -22,7 +22,7 @@ import { AppRoutes } from './app.routing';
 import { AuthService } from './_services/auth.service';
 import { SweetAlertService } from './_services/sweetalert.service';
 import { FileManagerAdminService } from './_services/filemanageradmin.service';
-import { FileManagerAdminResolver } from './_resolvers/filemanageradmin.resolver';
+import { FileService } from './_services/file.service';
 
 
 export function tokenGetter() {
@@ -61,7 +61,8 @@ export function tokenGetter() {
     providers: [
         AuthService,
         SweetAlertService,
-        FileManagerAdminService
+        FileManagerAdminService,
+        FileService
     ],
     bootstrap:    [ AppComponent ]
 })

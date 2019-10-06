@@ -27,7 +27,7 @@ namespace FileManager.API.Data
          Task<File> GetFile(int id);
          Task<PagedList<File>> GetFiles(UserParams userParams);
          Task<File> AddFile(File file);
-         Task<bool> FileExists(string filename, int fmadminid);
+         Task<bool> FileExists(string filename, int fmadminid, int nodeid);
 
          Task<Role> GetRole(int id);
          Task<PagedList<Role>> GetRoles(UserParams userParams);

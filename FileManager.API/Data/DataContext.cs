@@ -36,6 +36,9 @@ namespace FileManager.API.Data
             
             builder.Entity<FileManagerAdmin>()
                 .HasOne(u => u.User);
+            
+            builder.Entity<File>()
+                .HasOne(u => u.FMAdmin);
 
         }
     }

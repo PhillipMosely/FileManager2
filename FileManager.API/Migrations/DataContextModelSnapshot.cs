@@ -51,11 +51,17 @@ namespace FileManager.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Ext")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("FileManagerAdminId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FileName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("NodeId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Size")
                         .HasColumnType("INTEGER");

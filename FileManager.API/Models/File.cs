@@ -14,6 +14,7 @@ namespace FileManager.API.Models
         public DateTime DateModified { get; set; }
         public int FileManagerAdminId { get; set; }
         public virtual FileManagerAdmin FMAdmin { get; set; }
+        public int NodeId {get; set;}
 
     }
 }

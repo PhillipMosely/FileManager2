@@ -13,6 +13,7 @@ namespace FileManager.API.Dtos
         public int Size { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+        public int NodeId {get; set;}        
         public int FileManagerAdminId { get; set; }        
     }
 }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileManager.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191005192739_InitialAgain")]
-    partial class InitialAgain
+    [Migration("20191006100226_NewInitializationafterFilesUpdate")]
+    partial class NewInitializationafterFilesUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,11 +53,17 @@ namespace FileManager.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Ext")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("FileManagerAdminId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FileName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("NodeId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Size")
                         .HasColumnType("INTEGER");

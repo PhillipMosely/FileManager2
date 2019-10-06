@@ -22,7 +22,7 @@ namespace FileManager.API.Controllers
         private readonly IFileManagerRepository _repo;
         private readonly IMapper _mapper;
 
-        public RolesController(IFileManagerRepository repository, IMapper mapper)
+        public FilesController(IFileManagerRepository repository, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repository;
@@ -47,7 +47,7 @@ namespace FileManager.API.Controllers
             userParams.UserId = currentUserId;
  
             var files = await _repo.GetFiles(userParams);
-            var filesToReturn = _mapper.Map<IEnumerable<RoleForListDto>>(files);
+            var filesToReturn = _mapper.Map<IEnumerable<FileForListDto>>(files);
             Response.AddPagination(files.CurrentPage,files.PageSize,files.TotalCount,files.TotalPages);
             return Ok(filesToReturn);
         }
@@ -72,7 +72,9 @@ namespace FileManager.API.Controllers
         public async Task<IActionResult> AddFile(FileForAddDto fileForAddDto)
         {
 
-            if (await _repo.FileExists(fileForAddDto.FileName,fileForAddDto.FileManagerAdminId))
+            if (await _repo.FileExists(fileForAddDto.FileName,
+                                       fileForAddDto.FileManagerAdminId,
+                                       fileForAddDto.NodeId))
                 return BadRequest("File already exists for folder");
 
             var fileToAdd = _mapper.Map<File>(fileForAddDto);
