@@ -8,6 +8,10 @@
       </jqxTree>
     </div>
     <div #ContentPanel>
+        <jqxDataTable 
+          [width]="getWidth()" [source]="tableDataAdaptor" [columns]="tableColumns"
+          [pageable]="true" [altRows]="true" [filterable]="true">
+        </jqxDataTable>
     </div>
   </jqxSplitter>
 </div>

@@ -9,6 +9,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule} from '@angular/common/http';
 import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterModule } from 'jqwidgets-ng/jqxsplitter';
+import { jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
 
 import { AppComponent } from './app.component';
 
@@ -45,6 +46,7 @@ export function tokenGetter() {
         FixedPluginModule,
         jqxTreeModule,
         jqxSplitterModule,
+        jqxDataTableModule,
         JwtModule.forRoot({
             config: {
                tokenGetter,
