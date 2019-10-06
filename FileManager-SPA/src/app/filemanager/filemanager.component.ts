@@ -34,9 +34,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   [
       { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120,
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
-        const buttonedit = '<button (click)="" class="btn btn-primary btn-link btn-icon edit rowedit"' +
+        const buttonedit = '<button (click)="" id="edit' + row + '" class="btn btn-primary btn-link btn-icon edit rowedit"' +
                          ' title="Edit File"><i class="fa fa-edit"></i></button>';
-        const buttondel = '<button (click)="" class="btn btn-warning btn-link btn-icon remove rowdelete"' +
+        const buttondel = '<button (click)="" id="del' + row + '" class="btn btn-warning btn-link btn-icon remove rowdelete"' +
                          ' title="Delete File"><i class="fa fa-times"></i></button>';
         const item = '<div>' + buttonedit + buttondel + '</div>';
 
@@ -90,6 +90,16 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
       this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
+      const buttonadd = '<button (click)="" class="btn btn-success btn-round btn-icon btn-sm"' +
+                        ' style="position: relative; margin: 4px; float: right;"' +
+                        ' title="Add File"><i class="nc-icon nc-simple-add"></i></button>';
+      const addtoolbar = document.getElementsByClassName('jqx-grid-toolbar');
+      const element = document.createElement('button');
+      element.innerHTML = buttonadd;
+      element.addEventListener('click', () => {
+        alert('add');
+      });
+      addtoolbar[0].parentElement.appendChild(element);
   }
   select(event: any): void {
       if (this.fmAdmin != null) {
@@ -119,6 +129,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   renderedRowButtons(fileService: FileService) {
+      
     const editbuttons = document.getElementsByClassName('rowedit');
     for (let i = 0; i < editbuttons.length; i++) {
         editbuttons[i].addEventListener('click', () => {
