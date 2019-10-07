@@ -44,4 +44,8 @@ export class FileService {
     return this.http.delete(this.baseUrl + 'files/' + id);
   }
 
+  addFile(file: File) {
+    return this.http.post(this.baseUrl + 'files/', file)
+  }
+
 }

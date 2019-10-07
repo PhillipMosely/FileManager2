@@ -1,12 +1,12 @@
 export interface File {
-    Id: number;
-    FileName: string;
-    Ext: string;
-    Url: string;
-    Description: string;
-    Size: number;
-    DateCreated: Date;
-    DateModified: Date;
-    FileManagerAdminId: number;
-    NodeId: number;
+    id: number;
+    fileName: string;
+    ext: string;
+    url: string;
+    description: string;
+    size: number;
+    dateCreated: Date;
+    dateModified: Date;
+    fileManagerAdminId: number;
+    nodeId: number;
 }
