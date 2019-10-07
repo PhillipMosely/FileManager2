@@ -9,6 +9,7 @@ import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { FileService } from 'app/_services/file.service';
 import { PaginatedResult } from 'app/_models/Pagination';
 import { ModalService } from 'app/_services/modal.service';
+import { FileAddComponent } from '../fileadd/fileadd.component';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('ContentPanel', {static: false }) ContentPanel: ElementRef;
   @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
   @ViewChild('events', {static: false}) events: ElementRef;
+  @ViewChild('myFileAdd', {static: false}) myFileAdd: FileAddComponent;
 
   selectedNodeId = -1;
   data: any[];
@@ -155,16 +157,13 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     this.sweetAlertService.message('clicked d');
   }
   @HostListener('window:custom-eventa', ['$event']) onClicka() {
-    const args: any[] = [{
-      fmAdminId: this.fmAdmin.id,
-      nodeId: this.selectedNodeId
-    }];
-
-    this.openModal('fileaddmodal', args);
+    this.myFileAdd.nodeId = this.selectedNodeId;
+    this.myFileAdd.fmAdminId = this.fmAdmin.id;
+    this.openModal('fileaddmodal');
   }
 
-  openModal(id: string, args: any[]) {
-    this.modalService.open(id, args);
+  openModal(id: string) {
+    this.modalService.open(id);
   }
 
   closeModal(id: string) {
