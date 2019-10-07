@@ -22,8 +22,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
   @ViewChild('events', {static: false}) events: ElementRef;
 
-
-
+  selectedNodeId = -1;
   data: any[];
   fmAdmin: FileManagerAdmin;
   source: any;
@@ -107,8 +106,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       addtoolbar[0].parentElement.appendChild(element);
   }
   select(event: any): void {
+      this.selectedNodeId = event.args.element.id;
       if (this.fmAdmin != null) {
-        this.fileService.getFiles(this.fmAdmin.id, event.args.element.id, 1, 20 ).subscribe(
+        this.fileService.getFiles(this.fmAdmin.id, this.selectedNodeId, 1, 20 ).subscribe(
             (res: PaginatedResult<File[]>) => {
                 this.tableSource = {
                     dataType: 'json',
@@ -155,11 +155,16 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     this.sweetAlertService.message('clicked d');
   }
   @HostListener('window:custom-eventa', ['$event']) onClicka() {
-    this.openModal('fileaddmodal');
+    const args: any[] = [{
+      fmAdminId: this.fmAdmin.id,
+      nodeId: this.selectedNodeId
+    }];
+
+    this.openModal('fileaddmodal', args);
   }
 
-  openModal(id: string) {
-    this.modalService.open(id);
+  openModal(id: string, args: any[]) {
+    this.modalService.open(id, args);
   }
 
   closeModal(id: string) {

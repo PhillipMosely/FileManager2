@@ -10,6 +10,8 @@ import { HttpClientModule} from '@angular/common/http';
 import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterModule } from 'jqwidgets-ng/jqxsplitter';
 import { jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
+import { FileUploadModule } from 'ng2-file-upload';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 
@@ -26,6 +28,8 @@ import { FileManagerAdminService } from './_services/filemanageradmin.service';
 import { FileService } from './_services/file.service';
 import { ModalModule } from './components/modal/modal.module';
 import { ModalService } from './_services/modal.service';
+import { FileAddModule } from './files/fileadd/fileadd.module';
+
 
 
 export function tokenGetter() {
@@ -50,6 +54,8 @@ export function tokenGetter() {
         jqxSplitterModule,
         jqxDataTableModule,
         ModalModule,
+        FileUploadModule,
+        FileAddModule,
         JwtModule.forRoot({
             config: {
                tokenGetter,
@@ -61,7 +67,7 @@ export function tokenGetter() {
     declarations: [
         AppComponent,
         AdminLayoutComponent,
-        AuthLayoutComponent,
+        AuthLayoutComponent
     ],
     providers: [
         AuthService,

@@ -1,8 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { File } from '../../_models/file';
-import { AuthService } from '../../_services/auth.service';
-import { UserService } from '../../_services/user.service';
 import { environment } from '../../../environments/environment';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
 
@@ -11,16 +9,16 @@ import { SweetAlertService } from 'app/_services/sweetalert.service';
   templateUrl: './fileadd.component.html',
   styleUrls: ['./fileadd.component.css']
 })
-export class PhotoEditorComponent implements OnInit {
+
+export class FileAddComponent implements OnInit {
   @Input() files: File[];
-  @Output() getMemberPhotoChange = new EventEmitter<string>();
+  @Output() getFileChange = new EventEmitter<string>();
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   currentMain: File;
 
-  constructor(private authService: AuthService, private userService: UserService,
-              private sweetAlertService: SweetAlertService) { }
+  constructor(private sweetAlertService: SweetAlertService) { }
 
   ngOnInit() {
     this.initializeUploader();
@@ -48,8 +46,15 @@ export class PhotoEditorComponent implements OnInit {
         const res: File = JSON.parse(response);
         const file = {
           id: res.id,
+          fileName: res.fileName,
+          ext: res.ext,
           url: res.url,
           description: res.description,
+          size: res.size,
+          dateCreated: res.dateCreated,
+          dateModified: res.dateModified,
+          fileManagerAdminId: res.fileManagerAdminId,
+          nodeId: res.nodeId
         };
         this.files.push(file);
       }
