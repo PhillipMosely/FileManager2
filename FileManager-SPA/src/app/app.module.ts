@@ -29,6 +29,7 @@ import { FileService } from './_services/file.service';
 import { ModalModule } from './components/modal/modal.module';
 import { ModalService } from './_services/modal.service';
 import { FileAddModule } from './files/fileadd/fileadd.module';
+import { FileAddTestModule } from './files/fileaddtest/fileaddtest.module';
 
 
 
@@ -56,6 +57,7 @@ export function tokenGetter() {
         ModalModule,
         FileUploadModule,
         FileAddModule,
+        FileAddTestModule,
         JwtModule.forRoot({
             config: {
                tokenGetter,
