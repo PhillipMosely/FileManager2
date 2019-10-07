@@ -12,6 +12,7 @@ import { FileAddTestRoutes } from './fileaddtest.routing';
     RouterModule.forChild(FileAddTestRoutes),
 ],
 declarations: [FileAddTestComponent],
-schemas: [CUSTOM_ELEMENTS_SCHEMA]
+schemas: [CUSTOM_ELEMENTS_SCHEMA],
+exports: [FileAddTestComponent]
 })
 export class FileAddTestModule { }
