@@ -8,6 +8,7 @@ import { FileManagerAdminService } from 'app/_services/filemanageradmin.service'
 import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { FileService } from 'app/_services/file.service';
 import { PaginatedResult } from 'app/_models/Pagination';
+import { ModalService } from 'app/_services/modal.service';
 
 
 @Component({
@@ -54,7 +55,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   constructor(private route: ActivatedRoute,
               private fileManagerAdminService: FileManagerAdminService,
               private fileService: FileService,
-              private sweetAlertService: SweetAlertService) {
+              private sweetAlertService: SweetAlertService,
+              private modalService: ModalService) {
               }
 
   getTableWidth(): Number {
@@ -147,8 +149,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     }
   };
   @HostListener('window:custom-evente', ['$event']) onClicke() {
-      debugger;
-      var myelement = event.currentTarget;
     this.sweetAlertService.message('clicked e');
   }
   @HostListener('window:custom-eventd', ['$event']) onClickd() {
@@ -156,5 +156,14 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
   @HostListener('window:custom-eventa', ['$event']) onClicka() {
     this.sweetAlertService.message('clicked a');
+    this.openModal('fileaddmodal');
+  }
+
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 }

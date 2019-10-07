@@ -24,6 +24,8 @@ import { AuthService } from './_services/auth.service';
 import { SweetAlertService } from './_services/sweetalert.service';
 import { FileManagerAdminService } from './_services/filemanageradmin.service';
 import { FileService } from './_services/file.service';
+import { ModalModule } from './components/modal/modal.module';
+import { ModalService } from './_services/modal.service';
 
 
 export function tokenGetter() {
@@ -47,6 +49,7 @@ export function tokenGetter() {
         jqxTreeModule,
         jqxSplitterModule,
         jqxDataTableModule,
+        ModalModule,
         JwtModule.forRoot({
             config: {
                tokenGetter,
@@ -64,7 +67,8 @@ export function tokenGetter() {
         AuthService,
         SweetAlertService,
         FileManagerAdminService,
-        FileService
+        FileService,
+        ModalService
     ],
     bootstrap:    [ AppComponent ]
 })

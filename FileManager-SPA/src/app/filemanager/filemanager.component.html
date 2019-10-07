@@ -1,3 +1,4 @@
+<div>
 <div class="main-content">
   <div class="col-lg-12 col-sm-6">
     <div class="card">
@@ -22,6 +23,17 @@
     </div>
   </div>
 </div>
+</div>
 
-
-
+<jw-modal id="fileaddmodal">
+    <div class="col-lg-6 col-sm-4">
+        <div class="card">
+          <div class="card-body">
+      <h1>A Custom Modal!</h1>
+      <p>Hello World</p>
+      <!-- <p>Home page text: <input type="text" [(ngModel)]="bodyText" /></p> -->
+      <button (click)="closeModal('fileaddmodal');">Close</button>
+    </div>
+  </div>
+</div>      
+</jw-modal>

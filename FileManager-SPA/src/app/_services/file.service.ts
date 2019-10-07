@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../_models/user';
-import { FileManagerAdmin } from '../_models/filemanageradmin';
 import { PaginatedResult } from '../_models/Pagination';
 import { map } from 'rxjs/operators';
 
