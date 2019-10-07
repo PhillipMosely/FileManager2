@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, Renderer } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, HostListener } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { jqxDataTableComponent } from 'jqwidgets-ng/jqxdatatable';
 import { jqxButtonComponent } from 'jqwidgets-ng/jqxbuttons'; 
@@ -20,6 +20,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('ContentPanel', {static: false }) ContentPanel: ElementRef;
   @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
   @ViewChild('events', {static: false}) events: ElementRef;
+
+
 
   data: any[];
   fmAdmin: FileManagerAdmin;
@@ -52,7 +54,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   constructor(private route: ActivatedRoute,
               private fileManagerAdminService: FileManagerAdminService,
               private fileService: FileService,
-              private sweetAlertService: SweetAlertService) {}
+              private sweetAlertService: SweetAlertService) {
+              }
 
   getTableWidth(): Number {
       this.tableColumns.forEach(element => {
@@ -97,7 +100,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       const element = document.createElement('button');
       element.innerHTML = buttonadd;
       element.addEventListener('click', () => {
-        alert('add');
+        window.dispatchEvent(new Event('custom-eventa'));
       });
       addtoolbar[0].parentElement.appendChild(element);
   }
@@ -129,21 +132,29 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   renderedRowButtons(fileService: FileService) {
-      
     const editbuttons = document.getElementsByClassName('rowedit');
     for (let i = 0; i < editbuttons.length; i++) {
         editbuttons[i].addEventListener('click', () => {
-            alert('edit');
+            window.dispatchEvent(new Event('custom-evente'));
         });
     }
 
     const delbuttons = document.getElementsByClassName('rowdelete');
     for (let i = 0; i < delbuttons.length; i++) {
         delbuttons[i].addEventListener('click', () => {
-            alert('edit');
+            window.dispatchEvent(new Event('custom-eventd'));
         });
     }
   };
-
-
+  @HostListener('window:custom-evente', ['$event']) onClicke() {
+      debugger;
+      var myelement = event.currentTarget;
+    this.sweetAlertService.message('clicked e');
+  }
+  @HostListener('window:custom-eventd', ['$event']) onClickd() {
+    this.sweetAlertService.message('clicked d');
+  }
+  @HostListener('window:custom-eventa', ['$event']) onClicka() {
+    this.sweetAlertService.message('clicked a');
+  }
 }
