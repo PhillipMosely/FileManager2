@@ -12,7 +12,7 @@ export const AppRoutes: Routes = [{
         component: AdminLayoutComponent,
         children: [{
             path: '',
-            loadChildren: './filemanager/filemanager.module#FilemanagerModule'
+            loadChildren: './files/filemanager/filemanager.module#FilemanagerModule'
         },
         {
             path: '',
